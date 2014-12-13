@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php get_header(); ?>
 <div role="main" id="main">
   <div id="content">
