@@ -8,16 +8,32 @@ Tags: 乌徒帮
 Last Update Time: 2014/11/19 
 Demo: http://green.demo.utubon.com
 */
-#main-full{
+#main {
+  margin-top: 1em;
+}
+#main-full {
   position: relative;
   clear: both;
   width: 100%;
   margin: 0 auto;
   padding: 0;
 }
-#content-full{
+#content-full {
   overflow: hidden;
   padding: 0;
+}
+/*
+for all
+*/
+div.line {
+  width: 100%;
+  height: 2px;
+  margin: 10px auto;
+  background-color: #ccc;
+}
+.more {
+  float: right;
+  margin: 0.2em;
 }
 /*
   link-home
@@ -80,4 +96,267 @@ ul.news-wrapper li div {
   width: 100%;
   height: 100%;
   background-color: #fff;
+}
+.sign-wrapper .sign-title {
+  width: 100%;
+  height: 1em;
+  padding: 1em 0;
+  background-color: #DF1837;
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid #aaa;
+}
+form .form-row {
+  width: 70%;
+  height: 3em;
+  padding: 0 15%;
+}
+.form-row label,
+.form-row input {
+
+}
+.form-row label {
+  display: inline-block;
+  width: 20%;
+  color: #777;
+  text-align: right;
+}
+.form-row input {
+  width: 60%;
+  height: 1.5em;
+  margin: 0 1em;
+  padding: 0.05em 0.1em;
+  text-align: left;
+}
+input[type="checkbox"] {
+  width: 1em;
+  margin-left: 7em;
+}
+
+.sign-wrapper input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  width: 5em;
+  height: 2em;
+  background-color: #fff;
+  color: #DF1837; 
+  font-size: 200%;
+  text-align: center;
+  border: 3px solid #DF1837;
+}
+.sign-wrapper input[type="submit"]:hover {
+  background-color: #DF1837; 
+  color: #fff;
+}
+
+/*
+  link-course and link-source
+*/
+#content .wrapper-tab-body {
+  position: relative;
+  top: 0;
+  margin: 0 auto;
+  width: 95%;
+}
+.wrapper-tab-body .tabs {
+  position: relative;
+  height: 3em;
+}
+.tabs .tab-wrapper {
+  position: relative;
+  float: left;
+  width: 20%;
+}
+.tab-wrapper .top-tab {
+  height: 1em;
+  padding: 1em 0;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+.tab1 { background-color: #CC0033}
+.tab2 { background-color: #000099}
+.tab3 { background-color: #0066FF}
+.tab4 { background-color: #00CCFF}
+.tab5 { background-color: #00FFCC}
+
+.tab-wrapper .sec-tabs {
+  position: absolute;
+  top: 3em;
+  z-index: 100;
+  display: none;
+  width: 99%;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.sec-tabs a {
+  display: block;
+  width: 100%;
+}
+.wrapper-tab-body .tab-body {
+  padding-bottom: 1em;
+  border-left: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+}
+.tab-body .tab-body-title {
+  height: 1em;
+  padding: 0.7em 0 0.7em 2em;
+  background: #f4f4f4;
+  color: #6a6a6a;
+  font-weight: 600;
+  border-bottom: 1px solid #cccccc;
+}
+.tab-body .tab-body-content {
+  height: 700px;
+  margin: 1em 5em;
+  background-color: #cccccc;
+}
+
+/*
+  link-employ
+*/
+#container-full .employments {
+  padding: 1em 0;
+}
+.employments .employ-type {
+  float: left;
+  width: 30%;
+  margin: 0 0.5em;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+.employ-1 {border-top: 5px solid #0099FF;}
+.employ-2 {border-top: 5px solid #FF9933;}
+.employ-3 {border-top: 5px solid #FF0033;}
+
+.employ-type h3 {
+  height: 1em;
+  margin: 0;
+  padding: 0.5em;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #cccccc;
+}
+.employ-type .employ-big,
+.employ-type .employ-small {
+  margin: 1em 1.5em;
+}
+.employ-type .employ-big {
+  padding: 0.5em;
+  background-color: #f4f4f4;
+  border: 1px solid #cccccc;
+}
+.employ-big img {
+  float: left;
+  width: 30%;
+}
+.employ-big .employ-content {
+  float: left;
+  width: 60%;
+}
+.employ-big .employ-content {
+  padding: 0 0.5em;
+}
+.employ-content a {
+  font-size: 150%;
+}
+.employ-content p,
+.employ-small p {
+  margin: 0;
+  padding: 0;
+  height: 3em;
+  color: #777;
+  word-wrap: break-word;
+  word-break:break-all;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  text-indent:1em;
+  line-height: 1em;
+}
+.employ-small {
+  position: relative;
+}
+.employ-small a:hover {
+  background-color: #f4f4f4;
+}
+.employ-small p {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  background-color: #f4f4f4;
+  border: 1px solid #cccccc;
+}
+.employ-small p.show {
+  display: block;
+}
+
+/*
+  link-activity
+*/
+#content-full .wrapper-latest-activity,
+#content-full .wrapper-recent-activity {
+  margin: 2em 0;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-top: 5px solid #0099FF;
+}
+.wrapper-latest-activity .latest-activity {
+  padding: 0.5em;
+}
+.latest-activity img {
+  float: left;
+  width: 60%;
+  border: 1px solid #aaa;
+}
+.latest-activity .activity-content {
+  float: left;
+  width: 35%;
+  padding: 0 1em;
+}
+.activity-content a{
+  font-size: 200%;
+}
+.activity-content p {
+  height: 8em;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  word-wrap: break-word;
+  word-break:break-all;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  text-indent:1em;
+  line-height: 1em;
+}
+.wrapper-recent-activity h3 {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0.5em;
+  border-bottom: 1px solid #cccccc;
+}
+.wrapper-recent-activity .recent-activities {
+  padding: 1em;
+}
+.recent-activities .activity {
+  position: relative;
+  float: left;
+  width: 45%;
+  height: 3em;
+}
+.activity a {
+  float: left;
+  width: 60%;
+}
+.activity a:hover {
+}
+.activity p {
+  position: relative;
+  right: 0;
+  float: left;
+  margin: 0;
+  padding: 0;
 }
