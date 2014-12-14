@@ -10,7 +10,6 @@
 <script src="<?php bloginfo('template_url'); ?>/js/jquery.min.js"></script>
 <script id="load-page-scripts" src="<?php bloginfo('template_url'); ?>/js/javascript.js"></script>
 
-<?php if(!is_user_logged_in() && $admin_options['mode'] > 0) : ?>
 <?php get_template_part('templates/tpl-dialog-register'); ?>
 <?php get_template_part('templates/tpl-dialog-login'); ?>
 <script>
@@ -127,7 +126,6 @@ $('#user-login-dialog form').on('submit',function(e){
   });
 });
 </script>
-<?php endif; ?>
 
 <?php if(is_singular() && comments_open() && get_option('thread_comments')) { ?>
 <script src="<?php echo site_url('/wp-includes/js/comment-reply.js'); ?>"></script>

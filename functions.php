@@ -29,49 +29,49 @@ if(!is_admin()){
 
 register_nav_menu('primary','主导航');
 
-register_sidebar(array(
-  'name'=>'全局边栏',
-  'id' => 'sidebar-1',
-  'description' => '',
-  'before_widget' => '<div class="widget %2$s" id="%1$s">',
-  'after_widget' => '<div class="clear"></div></div>',
-  'before_title' => '<div class="widget-title"><h3>',
-  'after_title' => '</h3><div class="clear"></div></div>'
-));
-register_sidebar(array(
-  'name'=>'首页边栏',
-  'id' => 'sidebar-2',
-  'description' => '',
-  'before_widget' => '<div class="widget %2$s" id="%1$s">',
-  'after_widget' => '<div class="clear"></div></div>',
-  'before_title' => '<div class="widget-title"><h3>',
-  'after_title' => '</h3><div class="clear"></div></div>'
-));
-register_sidebar(array(
-  'name' => '内页边栏',
-      'id' => 'sidebar-3',
-  'before_widget' => '<div class="widget %2$s" id="%1$s">',
-  'after_widget' => '<div class="clear"></div></div>',
-  'before_title' => '<div class="widget-title"><h3>',
-  'after_title' => '</h3><div class="clear"></div></div>'
-));
-register_sidebar(array(
-  'name'=>'全站边栏',
-  'id' => 'sidebar-4',
-  'description' => '',
-  'before_widget' => '<div class="widget %2$s" id="%1$s">',
-  'after_widget' => '<div class="clear"></div></div>',
-  'before_title' => '<div class="widget-title"><h3>',
-  'after_title' => '</h3><div class="clear"></div></div>'
-));
-register_sidebar(array(
-  'name' => '固定边栏',
-  'id' => 'sidebar-fixed',
-  'before_widget' => '<div class="widget %2$s" id="%1$s">',
-  'after_widget' => '<div class="clear"></div></div>',
-  'before_title' => '<div class="widget-title"><h3>',
-  'after_title' => '</h3><div class="clear"></div></div>'
-));
+// register_sidebar(array(
+//   'name'=>'全局边栏',
+//   'id' => 'sidebar-1',
+//   'description' => '',
+//   'before_widget' => '<div class="widget %2$s" id="%1$s">',
+//   'after_widget' => '<div class="clear"></div></div>',
+//   'before_title' => '<div class="widget-title"><h3>',
+//   'after_title' => '</h3><div class="clear"></div></div>'
+// ));
+// register_sidebar(array(
+//   'name'=>'首页边栏',
+//   'id' => 'sidebar-2',
+//   'description' => '',
+//   'before_widget' => '<div class="widget %2$s" id="%1$s">',
+//   'after_widget' => '<div class="clear"></div></div>',
+//   'before_title' => '<div class="widget-title"><h3>',
+//   'after_title' => '</h3><div class="clear"></div></div>'
+// ));
+// register_sidebar(array(
+//   'name' => '内页边栏',
+//       'id' => 'sidebar-3',
+//   'before_widget' => '<div class="widget %2$s" id="%1$s">',
+//   'after_widget' => '<div class="clear"></div></div>',
+//   'before_title' => '<div class="widget-title"><h3>',
+//   'after_title' => '</h3><div class="clear"></div></div>'
+// ));
+// register_sidebar(array(
+//   'name'=>'全站边栏',
+//   'id' => 'sidebar-4',
+//   'description' => '',
+//   'before_widget' => '<div class="widget %2$s" id="%1$s">',
+//   'after_widget' => '<div class="clear"></div></div>',
+//   'before_title' => '<div class="widget-title"><h3>',
+//   'after_title' => '</h3><div class="clear"></div></div>'
+// ));
+// register_sidebar(array(
+//   'name' => '固定边栏',
+//   'id' => 'sidebar-fixed',
+//   'before_widget' => '<div class="widget %2$s" id="%1$s">',
+//   'after_widget' => '<div class="clear"></div></div>',
+//   'before_title' => '<div class="widget-title"><h3>',
+//   'after_title' => '</h3><div class="clear"></div></div>'
+// ));
 register_sidebar(array(
   'name' => '底部左',
   'id' => 'footer-1',
@@ -104,7 +104,24 @@ register_sidebar(array(
   'before_title' => '<div class="widget-title">',
   'after_title' => '</div>'
 ));
-
+register_sidebar(array(
+  'name' => '语言课程侧边栏',
+  'id' => 'sidebar-course',
+  'description' => '',
+  'before_widget' => '<div class="widget %2$s" id="%1$s">',
+  'after_widget' => '<div class="clear"></div></div>',
+  'before_title' => '<div class="widget-title"><h3>',
+  'after_title' => '</h3><div class="clear"></div></div>'
+));
+register_sidebar(array(
+  'name' => '学习资源侧边栏',
+  'id' => 'sidebar-source',
+  'description' => '',
+  'before_widget' => '<div class="widget %2$s" id="%1$s">',
+  'after_widget' => '<div class="clear"></div></div>',
+  'before_title' => '<div class="widget-title"><h3>',
+  'after_title' => '</h3><div class="clear"></div></div>'
+));
 include(dirname(__FILE__)."/admin-options/admin-options.php");
 // 引入扩展库
 $function_files_path = dirname(__FILE__).'/includes';

@@ -62,7 +62,11 @@ Template Name:course
     </div>
   </div>
   <aside role="sidebar">
-    <?php get_sidebar(); ?>
+    <div style="display:none;"><script>var window_width = window.innerWidth || document.documentElement.clientWidth || document.body.offsetWidth;if(window_width <= _options_.response_phone_width)document.write('<script class="not-load-sidebar"><noscript></script>');</script></div>
+      <div id="sidebar">
+        <?php dynamic_sidebar('sidebar-course'); ?>
+      </div>
+    <div style="display:none;"><script>var window_width = window.innerWidth || document.documentElement.clientWidth || document.body.offsetWidth;if(window_width <= _options_.response_phone_width)document.write('<script class="not-load-sidebar"></noscript></script>');</script></div>
   </aside>
 </div>
 <?php get_footer(); ?>
