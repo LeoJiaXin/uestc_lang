@@ -8,3 +8,76 @@ Tags: 乌徒帮
 Last Update Time: 2014/11/19 
 Demo: http://green.demo.utubon.com
 */
+#main-full{
+  position: relative;
+  clear: both;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+#content-full{
+  overflow: hidden;
+  padding: 0;
+}
+/*
+  link-home
+*/
+#content-full .banner {
+  height: 400px;
+  background-color: #33CC99;
+}
+
+#content-full .fast-links {
+  height: 300px;
+}
+
+.fast-links .top-menu-wrapper {
+  height: 170px;
+  background-color: #CCFFCC;
+}
+
+.fast-links .sec-menu-wrapper {
+  height: 100%;
+  background-color:  #FFFFCC;
+}
+
+#content-full .recent-news{
+  height: 800px;
+  background-color: #f4f4f4;
+  padding: 3em 15em;
+}
+
+.recent-news .news-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.news-wrapper li {
+  width: 100%;
+  height: 25%;
+
+}
+
+ul.news-wrapper li img,
+ul.news-wrapper li div {
+  float: left;
+  width: 45%;
+  height: 80%;
+  margin: 2% 1%;
+}
+
+/*
+  link-exam
+*/
+
+#content-full .background-sign {
+  height: 500px;
+  background-color: #66CCCC;
+  margin: 0;
+  padding: 150px 27em;
+}
+.background-sign .sign-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}

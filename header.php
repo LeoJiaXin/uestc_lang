@@ -9,6 +9,7 @@ global $admin_options;
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title><?php wp_title('',true); ?></title>
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/green-style.css">
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/style.css">
 <?php if($admin_options['response_pad_width'] > 0) { ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/green-pad.css?<?php echo time(); ?>" media="screen and (max-width: <?php echo $admin_options['response_pad_width']; ?>px)"><?php } ?>
 <?php if($admin_options['response_phone_width'] > 0) { ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/green-phone.css" media="screen and (max-width: <?php echo $admin_options['response_phone_width']; ?>px)"><?php } ?>
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico">
@@ -53,7 +54,7 @@ var _options_ = {
     echo $menu;
     ?>
   </div>
-  <?php if($admin_options['mode'] >= 2) { ?>
+  <?php //if($admin_options['mode'] >= 2) { ?>
   <div id="user-area">
     <?php if(is_user_logged_in()):global $current_user;get_currentuserinfo(); ?>
     <ul class="current-user-area">
@@ -67,14 +68,14 @@ var _options_ = {
     <span class="login"><a href="<?php echo wp_login_url($_SERVER["REQUEST_URI"]); ?>">登录</a></span>
     <?php endif; ?>
   </div>
-  <?php } ?>
-  <div id="search-area">
+  <?php //} ?>
+<!--   <div id="search-area">
     <form action="<?php bloginfo('url'); ?>" method="get">
       <input type="text" name="s" value="输入关键字..." onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
       <button type="submit">&nbsp;</button>
       <div class="clear"></div>
     </form>
-  </div>
+  </div> -->
   <div id="social-btns">
     <?php
     $socials = function_exists('array_admin_options') ? array_admin_options($admin_options['social']) : '';
