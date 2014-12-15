@@ -27,7 +27,17 @@
         <p><?php next_post_link('下一篇：%link'); ?></p>
       </div>
       <div class="clear"></div>
-      <?php get_template_part('templates/tpl-relate-posts'); ?>
+      <?php 
+        if ( in_category(array( 'recommand' )) ) {
+          get_template_part('templates/cat-recommand' );
+        } elseif ( in_category( 'list' )) {
+          get_template_part('templates/cat-list' );
+        } elseif ( in_category( 'content' )) {
+          get_template_part('templates/cat-content' );
+        } else {
+          get_template_part('templates/cat-default' );
+        }
+        ?>
       <div class="clear"></div>
       <?php if($admin_options['mode'] > 0) { ?>
       <div class="article-author">
