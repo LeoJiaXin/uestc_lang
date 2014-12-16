@@ -56,7 +56,7 @@ Template Name:course
       </div>
       <div class="tab-body">
         <div class="tab-body-title">Recommand</div>
-        <div class="tab-body-content">
+        <div class="tab-body-content" id="link-course">
         </div>
       </div>
     </div>
@@ -69,4 +69,7 @@ Template Name:course
     <div style="display:none;"><script>var window_width = window.innerWidth || document.documentElement.clientWidth || document.body.offsetWidth;if(window_width <= _options_.response_phone_width)document.write('<script class="not-load-sidebar"></noscript></script>');</script></div>
   </aside>
 </div>
+<script>
+  var moduleName = 'link-course';
+</script>
 <?php get_footer(); ?>

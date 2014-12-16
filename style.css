@@ -203,17 +203,37 @@ input[type="checkbox"] {
 .tab-body .tab-body-title {
   height: 1em;
   padding: 0.7em 0 0.7em 2em;
-  background: #f4f4f4;
+  background-color: #f4f4f4;
   color: #6a6a6a;
   font-weight: 600;
   border-bottom: 1px solid #cccccc;
 }
 .tab-body .tab-body-content {
-  height: 700px;
   margin: 1em 5em;
-  background-color: #cccccc;
 }
-
+.tab-body-recmmand {
+  width: 100%;
+}
+.recommand-list .list-element {
+  margin: 1em 0;
+  border: 1px solid #ccc;
+}
+.list-element h4 {
+  margin: 0;
+  padding: 0.5em 0 0.5em 0.5em;
+  background-color:  #f4f4f4;
+  border-bottom: 1px solid #ccc;
+}
+.list-element .list-content {
+  margin: 0.5em;
+}
+.list-content a {
+  display: inline-block;
+  width: 10em;
+  overflow: hidden;
+  margin: 0 2em;
+  font-size: 120%;
+}
 /*
   link-employ
 */

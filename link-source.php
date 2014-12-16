@@ -44,4 +44,7 @@ Template Name:source
     <div style="display:none;"><script>var window_width = window.innerWidth || document.documentElement.clientWidth || document.body.offsetWidth;if(window_width <= _options_.response_phone_width)document.write('<script class="not-load-sidebar"></noscript></script>');</script></div>
   </aside>
 </div>
+<script>
+  var moduleName = 'link-source';
+</script>
 <?php get_footer(); ?>

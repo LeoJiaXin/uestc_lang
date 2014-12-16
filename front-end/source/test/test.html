@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Spec Runner</title>
+</head>
+<body>
+    <div id="mocha"></div>
+    <script src="lib/mocha.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="lib/chai.js"></script>
+    <script>
+        var assert = chai.assert;
+        var expect = chai.expect;
+        var should = chai.should();
+    </script>
+
+    <!-- include source files here... -->
+
+    <!-- include spec files here... -->
+
+    <script>mocha.run()</script>
+</body>
+</html>

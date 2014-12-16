@@ -9,7 +9,25 @@
 
 <script src="<?php bloginfo('template_url'); ?>/js/jquery.min.js"></script>
 <script id="load-page-scripts" src="<?php bloginfo('template_url'); ?>/js/javascript.js"></script>
-
+<script src="<?php bloginfo('template_url'); ?>/js/sea.js" id="seajsnode"></script>
+<script>
+  if(moduleName) {
+    seajs.config({
+      paths: {
+        'base': '<?php bloginfo('template_url'); ?>/js',
+        'fun': '<?php bloginfo('template_url'); ?>/js/module/'+moduleName
+      },
+      alias: {
+        // 'underscore': 'base/underscore.js',
+        // 'backbone': 'base/backbone.js',
+        'handlebars': 'base/handlebars.runtime.min.js'
+      }
+    });
+    seajs.use('fun/main',function() {
+      console.log('ready');
+    });
+  }
+</script>
 <?php get_template_part('templates/tpl-dialog-register'); ?>
 <?php get_template_part('templates/tpl-dialog-login'); ?>
 <script>

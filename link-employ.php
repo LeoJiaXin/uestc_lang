@@ -144,4 +144,7 @@ Template Name:employ
     </div>
   </div>
 </div>
+<script>
+  var moduleName = 'link-employ';
+</script>
 <?php get_footer(); ?>

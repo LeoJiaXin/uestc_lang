@@ -71,4 +71,7 @@ Template Name:activity
     </div>
   </div>
 </div>
+<script>
+  var moduleName = 'link-activity';
+</script>
 <?php get_footer(); ?>
