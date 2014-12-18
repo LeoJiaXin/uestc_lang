@@ -15,7 +15,7 @@
     recent: [
       {
         title: 'this is a title.......yeah',
-        watch: 100
+        watched: 100
       },...
     ]
   }
@@ -38,7 +38,7 @@
   for ($i=0;$i<12;$i++) {
     $element = new obj;
     $element->title = 'this is a title.......yeah';
-    $element->watch = 200;
+    $element->watched = 200;
     array_push($data->recent, $element);
   }
   echo json_encode($data);
