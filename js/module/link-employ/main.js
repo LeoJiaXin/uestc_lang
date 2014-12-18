@@ -2,31 +2,35 @@
   define(function(require, exports, module) {
     var Backbone;
     Backbone = require('backbone');
-    require('base/template/link-source');
+    require('base/template/link-employ');
     $(function() {
-      var Source;
-      Source = {
+      var Employ;
+      Employ = {
         Models: {},
         Collections: {},
         Events: {}
       };
-      Source.View = Backbone.View.extend({
-        recommand: JST["source/template/link-source/recommand.hbs"],
-        list: JST["source/template/link-source/list.hbs"],
-        content: JST["source/template/link-source/content.hbs"],
-        el: $('#link-source'),
+      Employ.View = Backbone.View.extend({
+        recommand: JST["source/template/link-employ/recommand.hbs"],
+        list: JST["source/template/link-employ/list.hbs"],
+        content: JST["source/template/link-employ/content.hbs"],
+        el: $('#link-employ'),
         torecommand: function() {
           $.ajax({
-            url: path + '/ajax/source/load-recommand.php',
+            url: path + '/ajax/employ/load-recommand.php',
             dataType: 'json',
             type: 'GET',
             timeout: 8000,
             success: function(result) {
-              $.SourceView.$el.html('');
-              $.SourceView.$el.append($.SourceView.recommand(result));
-              return $('.list-content a').click(function(e) {
+              $.EmployView.$el.html('');
+              $.EmployView.$el.append($.EmployView.recommand(result));
+              $('.more').bind('click', function(e) {
                 e.preventDefault();
-                return $.SourceView.tocontent();
+                return $.EmployView.tolist();
+              });
+              return $('.employ-big a,.employ-small a').bind('click', function(e) {
+                e.preventDefault();
+                return $.EmployView.tocontent();
               });
             },
             error: function(xhr, textStatus) {
@@ -40,16 +44,16 @@
         },
         tolist: function() {
           $.ajax({
-            url: path + '/ajax/source/load-list.php',
+            url: path + '/ajax/employ/load-list.php',
             dataType: 'json',
             type: 'GET',
             timeout: 8000,
             success: function(result) {
-              $.SourceView.$el.html('');
-              $.SourceView.$el.append($.SourceView.list(result));
+              $.EmployView.$el.html('');
+              $.EmployView.$el.append($.EmployView.list(result));
               $('.table-column-3 a').bind('click', function(e) {
                 e.preventDefault();
-                return $.SourceView.tocontent();
+                return $.EmployView.tocontent();
               });
               require('base/module/common/jquerypager');
               return $.pager.createbelow($('#list-pager'), {
@@ -73,13 +77,13 @@
         },
         tocontent: function() {
           $.ajax({
-            url: path + '/ajax/source/load-content.php',
+            url: path + '/ajax/employ/load-content.php',
             dataType: 'json',
             type: 'GET',
             timeout: 8000,
             success: function(result) {
-              $.SourceView.$el.html('');
-              return $.SourceView.$el.append($.SourceView.content(result));
+              $.EmployView.$el.html('');
+              return $.EmployView.$el.append($.EmployView.content(result));
             },
             error: function(xhr, textStatus) {
               if (textStatus === 'timeout') {
@@ -91,15 +95,8 @@
           });
         }
       });
-      $.SourceView = new Source.View();
-      $('.top-tab.tab1').bind('click', function(e) {
-        return $.SourceView.torecommand();
-      });
-      $('.tab2,.tab3,.tab4,.tab5').css('cursor', 'pointer').click(function(e) {
-        e.preventDefault();
-        return $.SourceView.tolist();
-      });
-      return $.SourceView.torecommand();
+      $.EmployView = new Employ.View();
+      return $.EmployView.torecommand();
     });
   });
 

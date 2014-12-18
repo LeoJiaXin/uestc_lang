@@ -10,6 +10,10 @@ Demo: http://green.demo.utubon.com
 */
 #main {
   margin-top: 1em;
+  padding-bottom: 60px;
+}
+#footer {
+  margin-top: 0;
 }
 #main-full {
   position: relative;
@@ -267,10 +271,10 @@ input[type="checkbox"] {
 /*
   link-employ
 */
-#container-full .employments {
+#container-full #link-employ {
   padding: 1em 0;
 }
-.employments .employ-type {
+#link-employ .employ-type {
   float: left;
   width: 30%;
   margin: 0 0.5em;
@@ -335,6 +339,7 @@ input[type="checkbox"] {
   display: none;
   position: absolute;
   z-index: 100;
+  display: none;
   width: 100%;
   background-color: #f4f4f4;
   border: 1px solid #cccccc;
