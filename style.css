@@ -1,12 +1,8 @@
 /*
-Theme Name: Green Demo
-Theme URI: http://green.demo.utubon.com/
-Description: 乌徒帮出品 http://www.utubon.com
-Author: 否子戈
+Theme Name: Green Demo Expand
+Description: typical for uestc language center website
+Author: uestc
 Version: 1.0
-Tags: 乌徒帮
-Last Update Time: 2014/11/19 
-Demo: http://green.demo.utubon.com
 */
 #main {
   margin-top: 1em;
@@ -267,6 +263,52 @@ input[type="checkbox"] {
 }
 #list-pager {
   margin: 0 auto;
+}
+/*
+  sidebar
+*/
+#sidebar {
+  padding: 1em;
+}
+#sidebar .list-panel {
+  border: 1px solid #ccc;
+  margin: 1em 0;
+}
+.list-panel h3 {
+  margin: 0;
+  padding: 0.5em 0 0.5em 0.5em;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ccc;
+}
+.list-panel .piece {
+  padding: 0.3em 0.5em;
+  margin: 0;
+}
+/* particular for link-course */
+.piece img {
+  width: 5em;
+  height: 5em;
+  float: left;
+}
+.piece .texts {
+  float: left;
+  margin-left: 1em;
+}
+.texts h4 {
+  margin: 0.2em 0;
+  padding: 0;
+}
+.texts p {
+  color: #666;
+  margin: 0;
+  padding: 0;
+}
+/* particular for link-source */
+.piece a {
+  color: red;
+}
+.piece a:hover {
+  font-weight: 600;
 }
 /*
   link-employ

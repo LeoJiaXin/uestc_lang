@@ -8,13 +8,14 @@ define (require,exports,module)->
   
   #页面加载完后执行如下/jquery的ready
   $ ()->
-    #推荐页面，也是语言课程的默认页面Course
+    #define 语言课程页面Course
     Course = 
       Models:{}
       Collections:{}
       Events:{}
     #模型:推荐页面数据
-
+    #Course.Models.Data = Backbone.Model.extend
+    #page for course (without sidebar)
     Course.View = Backbone.View.extend
       recommand:JST["source/template/link-course/recommand.hbs"]
       list:JST["source/template/link-course/list.hbs"]
@@ -80,7 +81,30 @@ define (require,exports,module)->
               console.log '网络异常，请检查你的网络是否有问题。'
         return
 
+    #define sidebar
+    Sidebar = {}
+    #for the view
+    Sidebar.View = Backbone.View.extend
+      template: JST["source/template/link-course/sidebar.hbs"]
+      el: $('#sidebar')
+      render:()->
+        $.ajax
+          url : path+'/ajax/course/load-best-student.php'
+          dataType : 'json'
+          type : 'GET'
+          timeout : 8000
+          success : (result)->
+            $.SidebarView.$el.html ''
+            $.SidebarView.$el.append $.SidebarView.template result
+          error : (xhr,textStatus)->
+            if textStatus is 'timeout'
+              console.log '连接超时，检查你是否使用代理等不稳定的网络。'
+            else
+              console.log '网络异常，请检查你的网络是否有问题。'
+        return
+
     $.CourseView = new Course.View()
+    $.SidebarView = new Sidebar.View()
 
     #init for tabs
     $('.top-tab.tab1').bind 'click',(e)->
@@ -101,4 +125,6 @@ define (require,exports,module)->
 
     #start load pagedata
     $.CourseView.torecommand()
+    $.SidebarView.render()
+    return
   return

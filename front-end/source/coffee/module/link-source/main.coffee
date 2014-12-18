@@ -77,8 +77,30 @@ define (require,exports,module)->
               console.log '网络异常，请检查你的网络是否有问题。'
         return
 
-    $.SourceView = new Source.View()
+    #define sidebar
+    Sidebar = {}
+    #for the view
+    Sidebar.View = Backbone.View.extend
+      template: JST["source/template/link-source/sidebar.hbs"]
+      el: $('#sidebar')
+      render:()->
+        $.ajax
+          url : path+'/ajax/source/load-hot-download.php'
+          dataType : 'json'
+          type : 'GET'
+          timeout : 8000
+          success : (result)->
+            $.SidebarView.$el.html ''
+            $.SidebarView.$el.append $.SidebarView.template result
+          error : (xhr,textStatus)->
+            if textStatus is 'timeout'
+              console.log '连接超时，检查你是否使用代理等不稳定的网络。'
+            else
+              console.log '网络异常，请检查你的网络是否有问题。'
+        return
 
+    $.SourceView = new Source.View()
+    $.SidebarView = new Sidebar.View()
     #init for tabs
     $('.top-tab.tab1').bind 'click',(e)->
       $.SourceView.torecommand()
@@ -89,4 +111,5 @@ define (require,exports,module)->
 
     #start load pagedata
     $.SourceView.torecommand()
+    $.SidebarView.render()
   return

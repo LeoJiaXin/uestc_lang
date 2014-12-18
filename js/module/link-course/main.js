@@ -5,7 +5,7 @@
     Backbone = require('backbone');
     require('base/template/link-course');
     $(function() {
-      var Course, hidetab, showtab;
+      var Course, Sidebar, hidetab, showtab;
       Course = {
         Models: {},
         Collections: {},
@@ -92,7 +92,32 @@
           });
         }
       });
+      Sidebar = {};
+      Sidebar.View = Backbone.View.extend({
+        template: JST["source/template/link-course/sidebar.hbs"],
+        el: $('#sidebar'),
+        render: function() {
+          $.ajax({
+            url: path + '/ajax/course/load-best-student.php',
+            dataType: 'json',
+            type: 'GET',
+            timeout: 8000,
+            success: function(result) {
+              $.SidebarView.$el.html('');
+              return $.SidebarView.$el.append($.SidebarView.template(result));
+            },
+            error: function(xhr, textStatus) {
+              if (textStatus === 'timeout') {
+                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
+              } else {
+                return console.log('网络异常，请检查你的网络是否有问题。');
+              }
+            }
+          });
+        }
+      });
       $.CourseView = new Course.View();
+      $.SidebarView = new Sidebar.View();
       $('.top-tab.tab1').bind('click', function(e) {
         $.CourseView.torecommand();
         return console.log('haha');
@@ -116,7 +141,8 @@
         e.preventDefault();
         return $.CourseView.tolist();
       });
-      return $.CourseView.torecommand();
+      $.CourseView.torecommand();
+      $.SidebarView.render();
     });
   });
 
