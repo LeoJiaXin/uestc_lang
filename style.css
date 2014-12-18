@@ -174,25 +174,34 @@ input[type="checkbox"] {
   font-weight: 600;
   text-align: center;
 }
-.tab1 { background-color: #CC0033}
-.tab2 { background-color: #000099}
-.tab3 { background-color: #0066FF}
-.tab4 { background-color: #00CCFF}
-.tab5 { background-color: #00FFCC}
+.tab1 { 
+  background-color: #CC0033;
+  cursor: pointer;
+}
+.tab2 { background-color: #000099;}
+.tab3 { background-color: #0066FF;}
+.tab4 { background-color: #00CCFF;}
+.tab5 { background-color: #00FFCC;}
 
 .tab-wrapper .sec-tabs {
   position: absolute;
   top: 3em;
   z-index: 100;
-  display: none;
+  padding: 0.5em 0;
   width: 99%;
+  background-color: #fff;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
 .sec-tabs a {
   display: block;
+  padding: 0.2em 0;
   width: 100%;
+  text-align: center;
+}
+.sec-tabs a:hover {
+  background-color: #ccc;
 }
 .wrapper-tab-body .tab-body {
   padding-bottom: 1em;
@@ -233,6 +242,27 @@ input[type="checkbox"] {
   overflow: hidden;
   margin: 0 2em;
   font-size: 120%;
+}
+.table {
+  margin: 1em 0;
+  font-size: 110%;
+}
+.table .table-row {
+  margin: 0;
+  padding: 0.5em 0;
+  border-bottom: 1px solid #ccc;
+}
+.table .table-header {
+  font-size: 120%;
+  font-weight: 600;
+}
+.table-row .table-column-3 {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+#list-pager {
+  margin: 0 auto;
 }
 /*
   link-employ

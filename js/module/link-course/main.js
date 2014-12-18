@@ -1,197 +1,122 @@
 (function() {
   define(function(require, exports, module) {
-    var Backbone, Root;
+    var Backbone;
+    $('.tab-wrapper').children('.sec-tabs').hide();
     Backbone = require('backbone');
     require('base/template/link-course');
-    Root = {};
     $(function() {
-      var List;
-      Root.View = Backbone.View.extend({
-        template: JST["source/template/link-course/recommand.hbs"],
+      var Course, hidetab, showtab;
+      Course = {
+        Models: {},
+        Collections: {},
+        Events: {}
+      };
+      Course.View = Backbone.View.extend({
+        recommand: JST["source/template/link-course/recommand.hbs"],
+        list: JST["source/template/link-course/list.hbs"],
+        content: JST["source/template/link-course/content.hbs"],
         el: $('#link-course'),
-        render: function() {
-          var data;
-          data = {
-            recommand_list: [
-              {
-                title: 'aaa',
-                links: [
-                  {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }
-                ]
-              }, {
-                title: 'bbb',
-                links: [
-                  {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }
-                ]
-              }, {
-                title: 'ccc',
-                links: [
-                  {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }
-                ]
-              }, {
-                title: 'ddd',
-                links: [
-                  {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }, {
-                    link: '#',
-                    name: 'link1'
-                  }, {
-                    link: '#',
-                    name: 'link2'
-                  }, {
-                    link: '#',
-                    name: 'link3'
-                  }
-                ]
+        torecommand: function() {
+          $.ajax({
+            url: path + '/ajax/course/load-recommand.php',
+            dataType: 'json',
+            type: 'GET',
+            timeout: 8000,
+            success: function(result) {
+              $.CourseView.$el.html('');
+              $.CourseView.$el.append($.CourseView.recommand(result));
+              return $('.list-content a').click(function(e) {
+                e.preventDefault();
+                return $.CourseView.tocontent();
+              });
+            },
+            error: function(xhr, textStatus) {
+              if (textStatus === 'timeout') {
+                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
+              } else {
+                return console.log('网络异常，请检查你的网络是否有问题。');
               }
-            ]
-          };
-          return this.$el.append(this.template(data));
+            }
+          });
+        },
+        tolist: function() {
+          $.ajax({
+            url: path + '/ajax/course/load-list.php',
+            dataType: 'json',
+            type: 'GET',
+            timeout: 8000,
+            success: function(result) {
+              $.CourseView.$el.html('');
+              $.CourseView.$el.append($.CourseView.list(result));
+              $('.table-column-3 a').bind('click', function(e) {
+                e.preventDefault();
+                return $.CourseView.tocontent();
+              });
+              require('base/module/common/jquerypager');
+              return $.pager.createbelow($('#list-pager'), {
+                header: 1,
+                next: 1,
+                pageNum: 5,
+                max: 20,
+                dopage: function(index) {
+                  return console.log('you have click page' + index);
+                }
+              });
+            },
+            error: function(xhr, textStatus) {
+              if (textStatus === 'timeout') {
+                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
+              } else {
+                return console.log('网络异常，请检查你的网络是否有问题。');
+              }
+            }
+          });
+        },
+        tocontent: function() {
+          $.ajax({
+            url: path + '/ajax/course/load-content.php',
+            dataType: 'json',
+            type: 'GET',
+            timeout: 8000,
+            success: function(result) {
+              $.CourseView.$el.html('');
+              return $.CourseView.$el.append($.CourseView.content(result));
+            },
+            error: function(xhr, textStatus) {
+              if (textStatus === 'timeout') {
+                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
+              } else {
+                return console.log('网络异常，请检查你的网络是否有问题。');
+              }
+            }
+          });
         }
       });
-      List = {};
-      List.View = Backbone.View.extend({
-        template: JST["source/template/link-course/list.hbs"],
-        el: $('#link-course'),
-        render: function() {
-          return this.$el.append(this.template());
-        }
+      $.CourseView = new Course.View();
+      $('.top-tab.tab1').bind('click', function(e) {
+        $.CourseView.torecommand();
+        return console.log('haha');
       });
-      return new Root.View().render();
+      showtab = function() {
+        var sec;
+        sec = $(this).children('.sec-tabs');
+        if (sec != null) {
+          return sec.fadeIn();
+        }
+      };
+      hidetab = function() {
+        var sec;
+        sec = $(this).children('.sec-tabs');
+        if (sec != null) {
+          return sec.fadeOut();
+        }
+      };
+      $('.tab-wrapper').hover(showtab, hidetab);
+      $('.sec-tabs a').click(function(e) {
+        e.preventDefault();
+        return $.CourseView.tolist();
+      });
+      return $.CourseView.torecommand();
     });
   });
 

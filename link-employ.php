@@ -13,7 +13,7 @@ Template Name:employ
     </div>
     <div class="employments">
       <div class="employ-type employ-1">
-        <h3>abroad</h3>
+        <h3>abroad<a href="#" class="more">more</a></h3>
         <div class="employ-big">
           <img src="<?php echo get_template_directory_uri(); ?>/images/avatar-3.png" alt="">
           <div class="employ-content">
@@ -56,7 +56,7 @@ Template Name:employ
         </div>
       </div>
       <div class="employ-type employ-2">
-        <h3>study</h3>
+        <h3>study<a href="#" class="more">more</a></h3>
         <div class="employ-big">
           <img src="<?php echo get_template_directory_uri(); ?>/images/avatar-3.png" alt="">
           <div class="employ-content">
@@ -99,7 +99,7 @@ Template Name:employ
         </div>
       </div>
       <div class="employ-type employ-3">
-        <h3>work</h3>
+        <h3>work<a href="#" class="more">more</a></h3>
         <div class="employ-big">
           <img src="<?php echo get_template_directory_uri(); ?>/images/avatar-3.png" alt="">
           <div class="employ-content">

@@ -15,11 +15,6 @@ Template Name:course
       <div class="tabs">
         <div class="tab-wrapper">
           <div class="top-tab tab1">Recommand</div>
-          <div class="sec-tabs">
-            <a href="#">Aaaaa</a>
-            <a href="#">Baa</a>
-            <a href="#">Ccccc</a>
-          </div>
         </div>
         <div class="tab-wrapper">
           <div class="top-tab tab2">Abroad</div>
@@ -56,8 +51,7 @@ Template Name:course
       </div>
       <div class="tab-body">
         <div class="tab-body-title">Recommand</div>
-        <div class="tab-body-content" id="link-course">
-        </div>
+        <div class="tab-body-content" id="link-course"></div>
       </div>
     </div>
   </div>

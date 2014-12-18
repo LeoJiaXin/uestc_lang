@@ -11,15 +11,14 @@
 <script id="load-page-scripts" src="<?php bloginfo('template_url'); ?>/js/javascript.js"></script>
 <script src="<?php bloginfo('template_url'); ?>/js/sea.js" id="seajsnode"></script>
 <script>
+  var path = '<?php bloginfo('template_url'); ?>';
   if(moduleName) {
     seajs.config({
       paths: {
-        'base': '<?php bloginfo('template_url'); ?>/js',
-        'fun': '<?php bloginfo('template_url'); ?>/js/module/'+moduleName
+        'base': path+'/js',
+        'fun': path+'/js/module/'+moduleName
       },
       alias: {
-        // 'underscore': 'base/underscore.js',
-        // 'backbone': 'base/backbone.js',
         'handlebars': 'base/handlebars.runtime.min.js'
       }
     });
