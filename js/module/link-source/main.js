@@ -103,7 +103,11 @@
             timeout: 8000,
             success: function(result) {
               $.SidebarView.$el.html('');
-              return $.SidebarView.$el.append($.SidebarView.template(result));
+              $.SidebarView.$el.append($.SidebarView.template(result));
+              return $('#sidebar a').bind('click', function(e) {
+                e.preventDefault();
+                return $.SourceView.tocontent();
+              });
             },
             error: function(xhr, textStatus) {
               if (textStatus === 'timeout') {

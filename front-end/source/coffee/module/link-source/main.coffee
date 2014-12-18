@@ -92,6 +92,9 @@ define (require,exports,module)->
           success : (result)->
             $.SidebarView.$el.html ''
             $.SidebarView.$el.append $.SidebarView.template result
+            $('#sidebar a').bind 'click',(e)->
+              e.preventDefault()
+              $.SourceView.tocontent()
           error : (xhr,textStatus)->
             if textStatus is 'timeout'
               console.log '连接超时，检查你是否使用代理等不稳定的网络。'

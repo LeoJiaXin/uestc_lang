@@ -1,0 +1,9 @@
+{{#each images}}
+<img src="{{../basepath}}{{img}}" alt="">
+{{/each}}
+<div class="wrapper-banner-switch">
+    {{#each images}}
+    <div class="banner-switch{{#if @first}} select{{/if}}"></div>
+    {{/each}}
+    <div class="clear"></div>
+</div>
