@@ -1,0 +1,36 @@
+<div class="wrapper-latest-activity">
+  {{#each latest}}
+  {{#if @first}}
+  <div class="latest-activity">
+    <img src="{{../../basepath}}{{img}}" alt="">
+    <div class="activity-content">
+      <a href="#">{{title}}</a>
+      <p>{{desc}}</p>
+    </div>
+    <div class="clear"></div>
+  </div>
+  {{/if}}
+  {{#if @last}}
+  <div class="latest-activity">
+    <div class="activity-content">
+      <a href="#">{{title}}</a>
+      <p>{{desc}}</p>
+    </div>
+    <img src="{{../../basepath}}{{img}}" alt="">
+    <div class="clear"></div>
+  </div>
+  {{/if}}
+  {{/each}}
+</div>
+<div class="wrapper-recent-activity">
+  <h3>Recent<a href="#" class="more">all>></a></h3>
+  <div class="recent-activities">
+    {{#each recent}}
+    <div class="activity">
+      <a href="#">{{title}}</a>
+      <p>{{watched}} watched</p>
+    </div>
+    {{/each}}
+    <div class="clear"></div>
+  </div>
+</div>

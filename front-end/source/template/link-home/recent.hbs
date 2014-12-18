@@ -1,0 +1,12 @@
+<ul class="news-wrapper">
+  {{#each news}}
+  <li>
+    <img src="{{../basepath}}{{img}}" alt="">
+    <div>
+      {{#each links}}
+      <a href="{{link}}">{{name}}</a>
+      {{/each}}
+    </div>
+  </li>
+  {{/each}}
+</ul>

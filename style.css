@@ -1,15 +1,15 @@
 /*
-Theme Name: Green Demo
-Theme URI: http://green.demo.utubon.com/
-Description: 乌徒帮出品 http://www.utubon.com
-Author: 否子戈
+Theme Name: Green Demo Expand
+Description: typical for uestc language center website
+Author: uestc
 Version: 1.0
-Tags: 乌徒帮
-Last Update Time: 2014/11/19 
-Demo: http://green.demo.utubon.com
 */
 #main {
   margin-top: 1em;
+  padding-bottom: 60px;
+}
+#footer {
+  margin-top: 0;
 }
 #main-full {
   position: relative;
@@ -38,32 +38,56 @@ div.line {
 /*
   link-home
 */
-#content-full .banner {
-  height: 400px;
+#content-full #banner {
+  position: relative;
   background-color: #33CC99;
 }
+#banner img{
 
-#content-full .fast-links {
-  height: 300px;
 }
+#banner  .wrapper-banner-switch {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  margin: 0 auto 0 auto;
+  background-color: #33CC99;
+}
+.wrapper-banner-switch .banner-switch {
+  float: left;
+  width: 1em;
+  height: 1em;
+  margin: 1em;
+  background-color: #fff;
+  cursor: pointer;
+}
+.wrapper-banner-switch .banner-switch.select {
+  background-color: #FF0033;
+}
+.wrapper-banner-switch .banner-switch:hover {
+  background-color: #FF6600;
+}
+/*#content-full #fast-links {
+  height: 300px;
+}*/
 
-.fast-links .top-menu-wrapper {
+#fast-links .top-menu-wrapper {
   height: 170px;
   background-color: #CCFFCC;
 }
 
-.fast-links .sec-menu-wrapper {
-  height: 100%;
+#fast-links .sec-menu-wrapper {
+  height: 130px;
   background-color:  #FFFFCC;
 }
 
-#content-full .recent-news{
+#content-full #recent-news{
   height: 800px;
   background-color: #f4f4f4;
   padding: 3em 15em;
 }
 
-.recent-news .news-wrapper {
+#recent-news .news-wrapper {
   width: 100%;
   height: 100%;
 }
@@ -174,25 +198,34 @@ input[type="checkbox"] {
   font-weight: 600;
   text-align: center;
 }
-.tab1 { background-color: #CC0033}
-.tab2 { background-color: #000099}
-.tab3 { background-color: #0066FF}
-.tab4 { background-color: #00CCFF}
-.tab5 { background-color: #00FFCC}
+.tab1 { 
+  background-color: #CC0033;
+  cursor: pointer;
+}
+.tab2 { background-color: #000099;}
+.tab3 { background-color: #0066FF;}
+.tab4 { background-color: #00CCFF;}
+.tab5 { background-color: #00FFCC;}
 
 .tab-wrapper .sec-tabs {
   position: absolute;
   top: 3em;
   z-index: 100;
-  display: none;
+  padding: 0.5em 0;
   width: 99%;
+  background-color: #fff;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
 .sec-tabs a {
   display: block;
+  padding: 0.2em 0;
   width: 100%;
+  text-align: center;
+}
+.sec-tabs a:hover {
+  background-color: #ccc;
 }
 .wrapper-tab-body .tab-body {
   padding-bottom: 1em;
@@ -203,24 +236,111 @@ input[type="checkbox"] {
 .tab-body .tab-body-title {
   height: 1em;
   padding: 0.7em 0 0.7em 2em;
-  background: #f4f4f4;
+  background-color: #f4f4f4;
   color: #6a6a6a;
   font-weight: 600;
   border-bottom: 1px solid #cccccc;
 }
 .tab-body .tab-body-content {
-  height: 700px;
   margin: 1em 5em;
-  background-color: #cccccc;
 }
-
+.tab-body-recmmand {
+  width: 100%;
+}
+.recommand-list .list-element {
+  margin: 1em 0;
+  border: 1px solid #ccc;
+}
+.list-element h4 {
+  margin: 0;
+  padding: 0.5em 0 0.5em 0.5em;
+  background-color:  #f4f4f4;
+  border-bottom: 1px solid #ccc;
+}
+.list-element .list-content {
+  margin: 0.5em;
+}
+.list-content a {
+  display: inline-block;
+  width: 10em;
+  overflow: hidden;
+  margin: 0 2em;
+  font-size: 120%;
+}
+.table {
+  margin: 1em 0;
+  font-size: 110%;
+}
+.table .table-row {
+  margin: 0;
+  padding: 0.5em 0;
+  border-bottom: 1px solid #ccc;
+}
+.table .table-header {
+  font-size: 120%;
+  font-weight: 600;
+}
+.table-row .table-column-3 {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+#list-pager {
+  margin: 0 auto;
+}
+/*
+  sidebar
+*/
+#sidebar {
+  padding: 1em;
+}
+#sidebar .list-panel {
+  border: 1px solid #ccc;
+  margin: 1em 0;
+}
+.list-panel h3 {
+  margin: 0;
+  padding: 0.5em 0 0.5em 0.5em;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ccc;
+}
+.list-panel .piece {
+  padding: 0.3em 0.5em;
+  margin: 0;
+}
+/* particular for link-course */
+.piece img {
+  width: 5em;
+  height: 5em;
+  float: left;
+}
+.piece .texts {
+  float: left;
+  margin-left: 1em;
+}
+.texts h4 {
+  margin: 0.2em 0;
+  padding: 0;
+}
+.texts p {
+  color: #666;
+  margin: 0;
+  padding: 0;
+}
+/* particular for link-source */
+.piece a {
+  color: red;
+}
+.piece a:hover {
+  font-weight: 600;
+}
 /*
   link-employ
 */
-#container-full .employments {
+#container-full #link-employ {
   padding: 1em 0;
 }
-.employments .employ-type {
+#link-employ .employ-type {
   float: left;
   width: 30%;
   margin: 0 0.5em;
@@ -285,6 +405,7 @@ input[type="checkbox"] {
   display: none;
   position: absolute;
   z-index: 100;
+  display: none;
   width: 100%;
   background-color: #f4f4f4;
   border: 1px solid #cccccc;
