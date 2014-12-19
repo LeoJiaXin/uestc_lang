@@ -3,7 +3,6 @@
 Template Name:usercenter
 */
 ?>
-
 <?php
 
 // 如果没有开启众人投稿模式
@@ -90,7 +89,7 @@ get_header(); ?>
 <div id="main">
   <div id="page-usercenter" class="single-page">
     <form method="post" action="<?php echo add_query_arg('time',time()); ?>">
-      <h1>用户中心</h1>
+      <h1>模拟考试</h1>
       <?php if($error) : ?>
       <p class="warn"><?php echo $error; ?></p>
       <?php else : ?>

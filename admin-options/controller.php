@@ -31,7 +31,8 @@ $admin_options_config['menu'] = array(
   array(
     'id' => 'payfor',
     'name' => '付费功能'
-  )
+  ),
+  
 );
 $admin_options_config['settings'] = array(
   'page' => 'admin-options'
