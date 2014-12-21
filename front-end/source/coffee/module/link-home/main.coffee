@@ -37,9 +37,30 @@ define (require,exports,module)->
       template:JST["source/template/link-home/fast-links.hbs"]
       el: $('#fast-links')
       render: ()->
+        data = 
+          basepath: path+'/images/home/fast-link/'
         @$el.html ''
-        @$el.append @template()
-
+        @$el.append @template(data)
+        $('.sec-menu-wrapper').children().hide()
+        $('.top-link-active').hide()
+        $('.top-link-active').eq(0).show()
+        $('.fast-link-top p').eq(0).css('color','#177BC6')
+        $('.sec-menu-wrapper').children().eq(0).show()
+        $('.fast-link-top').bind
+          mouseenter: ()->
+            $.HomeFastLinks.index = $('.fast-link-top').index($(@))
+            $('.top-link-active').hide()
+            $('.top-link-active').eq($.HomeFastLinks.index).show()
+            $('.fast-link-top p').css('color','#AAABAD')
+            $('.fast-link-top p').eq($.HomeFastLinks.index).css('color','#177BC6')
+            $('.triangle').animate {left:($.HomeFastLinks.index*10-20)+'em'},'normal','swing',()->
+              $('.sec-menu-wrapper').children().hide()
+              $('.sec-menu-wrapper').children().eq($.HomeFastLinks.index).fadeIn()
+        $('.fast-link-sec').bind
+          mouseenter: ()->
+            $(this).find('p').css('color','#177BC6')
+          mouseout: ()->
+            $(this).find('p').css('color','#AAABAD')
     Home.Views.Banner = Backbone.View.extend
       template:JST["source/template/link-home/banner.hbs"]
       el: $('#banner')
@@ -57,12 +78,9 @@ define (require,exports,module)->
             $('#banner img').eq(0).fadeIn()
             a1 = ()->
               $('#banner img').hide()
-              $('#banner img').eq($('.banner-switch').index($(this))).fadeIn()
-            a2 = ()->
-              #
+              $('#banner img').eq($('.banner-switch').index($(@))).fadeIn()
             $('.banner-switch').bind 
               mouseenter:a1
-              mouseout:a2
           error : (xhr,textStatus)->
             if textStatus is 'timeout'
               console.log '连接超时，检查你是否使用代理等不稳定的网络。'

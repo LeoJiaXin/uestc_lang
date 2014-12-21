@@ -122,7 +122,8 @@ register_sidebar(array(
   'before_title' => '<div class="widget-title"><h3>',
   'after_title' => '</h3><div class="clear"></div></div>'
 ));
-include(dirname(__FILE__)."/admin-options/admin-options.php");
+
+//include(dirname(__FILE__)."/admin-options/admin-options.php");
 // 引入扩展库
 $function_files_path = dirname(__FILE__).'/includes';
 if(file_exists($function_files_path)):
@@ -137,6 +138,7 @@ endif;
 /**
 * 回复列表 用wp_list_comments()函数打印出来
 */
+/*
 function mytheme_comment($comment, $args, $depth){
   $GLOBALS['comment'] = $comment; ?>
   <li <?php comment_class(); ?>>
@@ -160,3 +162,4 @@ function mytheme_comment($comment, $args, $depth){
       </div>
     </div>
 <?php }
+*/

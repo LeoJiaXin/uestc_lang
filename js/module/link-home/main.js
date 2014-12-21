@@ -38,8 +38,40 @@
         template: JST["source/template/link-home/fast-links.hbs"],
         el: $('#fast-links'),
         render: function() {
+          var data;
+          data = {
+            basepath: path + '/images/home/fast-link/'
+          };
           this.$el.html('');
-          return this.$el.append(this.template());
+          this.$el.append(this.template(data));
+          $('.sec-menu-wrapper').children().hide();
+          $('.top-link-active').hide();
+          $('.top-link-active').eq(0).show();
+          $('.fast-link-top p').eq(0).css('color', '#177BC6');
+          $('.sec-menu-wrapper').children().eq(0).show();
+          $('.fast-link-top').bind({
+            mouseenter: function() {
+              $.HomeFastLinks.index = $('.fast-link-top').index($(this));
+              $('.top-link-active').hide();
+              $('.top-link-active').eq($.HomeFastLinks.index).show();
+              $('.fast-link-top p').css('color', '#AAABAD');
+              $('.fast-link-top p').eq($.HomeFastLinks.index).css('color', '#177BC6');
+              return $('.triangle').animate({
+                left: ($.HomeFastLinks.index * 10 - 20) + 'em'
+              }, 'normal', 'swing', function() {
+                $('.sec-menu-wrapper').children().hide();
+                return $('.sec-menu-wrapper').children().eq($.HomeFastLinks.index).fadeIn();
+              });
+            }
+          });
+          return $('.fast-link-sec').bind({
+            mouseenter: function() {
+              return $(this).find('p').css('color', '#177BC6');
+            },
+            mouseout: function() {
+              return $(this).find('p').css('color', '#AAABAD');
+            }
+          });
         }
       });
       Home.Views.Banner = Backbone.View.extend({
@@ -52,7 +84,7 @@
             type: 'GET',
             timeout: 8000,
             success: function(result) {
-              var a1, a2;
+              var a1;
               $.HomeBanner.$el.html('');
               $.HomeBanner.$el.append($.HomeBanner.template(result));
               $('#banner').height($('#banner img').height());
@@ -62,10 +94,8 @@
                 $('#banner img').hide();
                 return $('#banner img').eq($('.banner-switch').index($(this))).fadeIn();
               };
-              a2 = function() {};
               return $('.banner-switch').bind({
-                mouseenter: a1,
-                mouseout: a2
+                mouseenter: a1
               });
             },
             error: function(xhr, textStatus) {
