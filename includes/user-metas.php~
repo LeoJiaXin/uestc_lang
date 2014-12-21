@@ -2,9 +2,9 @@
 
 // 用户信息
 function fix_user_profile($contactmethods){
-  $contactmethods['realname'] = '真实姓名<small>（）</small>';
-  $contactmethods['address'] = '通信地址<small>（）</small>';
-  $contactmethods['phone'] = '手机号<small>（）</small>';
+  $contactmethods['realname'] = '真实姓名<small>（奖品寄向）</small>';
+  $contactmethods['address'] = '通信地址<small>（奖品寄向）</small>';
+  $contactmethods['phone'] = '手机号<small>（奖品寄向）</small>';
   $contactmethods['qq'] = 'QQ';
   $contactmethods['weibo'] = '微博';
   $contactmethods['weixin'] = '微信';

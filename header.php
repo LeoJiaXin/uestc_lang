@@ -59,7 +59,7 @@ var _options_ = {
     <?php if(is_user_logged_in()):global $current_user;get_currentuserinfo(); ?>
     <ul class="current-user-area">
       <li class="user-name" title="<?php echo $current_user->display_name; ?>"><?php echo get_avatar($current_user->ID,'16'); ?><?php echo $current_user->display_name; ?></li>
-      <li class="drop-menu admin-btn"><a href="<?php echo get_permalink($admin_options['page_for_usercenter']); ?>">个人管理</a></li>
+      <li class="drop-menu admin-btn"><a href="<?php echo get_permalink($admin_options['page_for_usercenter']); ?>">模拟考试</a></li>
       <li class="drop-menu logout-btn"><a href="<?php echo wp_logout_url($_SERVER["REQUEST_URI"]); ?>">退出</a></li>
     </ul>
     <?php else : ?>

@@ -105,7 +105,7 @@ get_header(); ?>
       <p class="info"><label><span>真实姓名：</span><input type="text" name="user[meta][realname]" value="<?php echo $user->realname; ?>"></label></p>
       <p class="info"><label><span>通讯地址：</span><input type="text" name="user[meta][address]" value="<?php echo $user->address; ?>"></label></p>
       <p class="info"><label><span>手机号码：</span><input type="text" name="user[meta][phone]" value="<?php echo $user->phone; ?>"></label></p>
-      <p class="info"><label><span>个人网站：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
+      <p class="info"><label><span>学号：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
       <p class="info"><label><span>QQ：</span><input type="text" name="user[meta][qq]" value="<?php echo $user->qq; ?>"></label></p>
       <p class="info"><label><span>微信：</span><input type="text" name="user[meta][weixin]" value="<?php echo $user->weixin; ?>"></label></p>
       <p class="info"><label><span>微博：</span><input type="text" name="user[meta][weibo]" value="<?php echo $user->weibo; ?>"></label></p>
