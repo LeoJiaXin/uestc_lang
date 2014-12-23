@@ -1,3 +1,12 @@
-欢迎使用PHP应用，目前JAE上PHP版本是5.3.10。
+uest语言中心网站开发文档
+=================
+wordpress框架
+---------------
 
-dasdasdasdasa
+* 主要网站：wordpress主题实现
+* 后台网站：wordpress插件实现
+
+
+
+
+
