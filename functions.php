@@ -123,7 +123,7 @@ register_sidebar(array(
   'after_title' => '</h3><div class="clear"></div></div>'
 ));
 
-//include(dirname(__FILE__)."/admin-options/admin-options.php");
+include(dirname(__FILE__)."/admin-options/admin-options.php");
 // 引入扩展库
 $function_files_path = dirname(__FILE__).'/includes';
 if(file_exists($function_files_path)):
