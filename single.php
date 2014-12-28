@@ -10,9 +10,7 @@
         <?php if($admin_options['mode'] > 0) { ?><span class="icon author"></span><a href="<?php echo get_author_posts_url($post->post_author); ?>"><?php the_author(); ?></a><?php } ?>
         <span class="icon cate"></span><?php the_category(','); ?>
         <span class="icon date"></span><?php echo get_the_date('Y-m-d H:i'); ?>
-        <?php comments_popup_link('<span class="icon comment"></span> 0','<span class="icon comment"></span> 1','<span class="icon comment"></span> %'); ?>
-        <span class="icon view"></span><?php the_view_count(); ?>
-        <?php edit_post_link('<span class="icon edit"></span>编辑'); ?>
+        
       </div>
       <div class="article-content">
         <?php the_content(); ?>
@@ -28,16 +26,14 @@
       </div>
       <div class="clear"></div>
       <?php 
-        if ( in_category(array( 'recommand' )) ) {
-          get_template_part('templates/cat-recommand' );
-        } elseif ( in_category( 'list' )) {
-          get_template_part('templates/cat-list' );
-        } elseif ( in_category( 'content' )) {
-          get_template_part('templates/cat-content' );
-        } else {
-          get_template_part('templates/cat-default' );
-        }
-        ?>
+if ( in_category(array(4,5,6)) ) {
+    include(TEMPLATEPATH . '/catgory-activities.php');
+} elseif ( in_category(array(1,2,3))){
+    include(TEMPLATEPATH . '/catgory-activities.php');
+} else {
+    include(TEMPLATEPATH . '/catgory-activities.php');
+}
+?>
       <div class="clear"></div>
       <?php if($admin_options['mode'] > 0) { ?>
       <div class="article-author">
@@ -47,7 +43,7 @@
         <div class="clear"></div>
       </div>
       <?php } ?>
-      <div id="comments"><?php comments_template('',true); ?></div>
+     
     </div>
     </article>
   </div>

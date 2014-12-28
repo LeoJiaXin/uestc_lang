@@ -123,6 +123,110 @@ register_sidebar(array(
   'after_title' => '</h3><div class="clear"></div></div>'
 ));
 
+/*
+ * WordPress 显示最近注册的用户
+ * uestcwp
+ */
+function wpb_recently_registered_users() { 
+	global $wpdb;
+	$recentusers = '<ul class="recently-user">';
+	$usernames = $wpdb->get_results("SELECT user_nicename, user_url, user_email FROM $wpdb->users ORDER BY ID DESC LIMIT 5"); //只显示最近注册的 5 个用户
+	foreach ($usernames as $username) {
+		if (!$username->user_url) : //如果有用户没有填写网站，就只显示头像和用户名
+			$recentusers .= '<li>' .get_avatar($username->user_email, 45) .$username->user_nicename."</a></li>";
+		else : //如果用户填写了网站，就给用户名添加链接
+			$recentusers .= '<li>' .get_avatar($username->user_email, 45).'<a href="'.$username->user_url.'">'.$username->user_nicename."</a></li>";
+		endif;
+	}
+	$recentusers .= '</ul>';
+	return $recentusers;  
+}
+//添加简码
+add_shortcode('wpb_newusers', 'wpb_recently_registered_users');
+
+/**
+ * WordPress 后台用户列表显示用户姓名
+ * uestcwp
+ */
+add_filter('manage_users_columns', 'add_l_realname_column');
+function add_l_realname_column($columns) {
+	$columns['l_realname'] = '姓名';
+	unset($columns['name']); //移除“姓名”这一栏
+	unset($columns['role']);//移除“角色”这一栏
+	unset($columns['posts']);//移除“发表文章数”这一栏
+	return $columns;
+}
+
+add_action('manage_users_custom_column',  'show_l_realname_column_content', 20, 3);
+
+function show_l_realname_column_content($value, $column_name, $user_id) {
+	$user = get_userdata( $user_id );
+	$l_realname = $user->l_realname;
+	if ( 'l_realname' == $column_name )
+		return $l_realname;
+	return $value;
+}
+
+/**
+ * WordPress 后台用户列表显示用户手机号码
+ * uestcwp
+ */
+add_filter('manage_users_columns', 'add_l_phone_column');
+function add_l_phone_column($columns) {
+	$columns['l_phone'] = '手机号码';
+	return $columns;
+}
+
+add_action('manage_users_custom_column',  'show_l_phone_column_content', 20, 3);
+
+function show_l_phone_column_content($value, $column_name, $user_id) {
+	$user = get_userdata( $user_id );
+	$l_phone = $user->l_phone;
+	if ( 'l_phone' == $column_name )
+		return $l_phone;
+	return $value;
+}
+
+/**
+ * WordPress 后台用户列表显示用户身份证号码
+ * uestcwp
+ */
+add_filter('manage_users_columns', 'add_l_identitycard_column');
+function add_l_identitycard_column($columns) {
+	$columns['l_identitycard'] = '身份证号码';
+	return $columns;
+}
+
+add_action('manage_users_custom_column',  'show_l_identitycard_column_content', 20, 3);
+
+function show_l_identitycard_column_content($value, $column_name, $user_id) {
+	$user = get_userdata( $user_id );
+	$l_identitycard = $user->l_identitycard;
+	if ( 'l_identitycard' == $column_name )
+		return $l_identitycard;
+	return $value;
+}
+
+/**
+ * WordPress 后台用户列表显示用户学号
+ * uestcwp
+ */
+add_filter('manage_users_columns', 'add_l_number_column');
+function add_l_number_column($columns) {
+	$columns['l_number'] = '学号';
+	return $columns;
+}
+
+add_action('manage_users_custom_column',  'show_l_number_column_content', 20, 3);
+
+function show_l_number_column_content($value, $column_name, $user_id) {
+	$user = get_userdata( $user_id );
+	$l_number = $user->l_number;
+	if ( 'l_number' == $column_name )
+		return $l_number;
+	return $value;
+}
+
 include(dirname(__FILE__)."/admin-options/admin-options.php");
 // 引入扩展库
 $function_files_path = dirname(__FILE__).'/includes';

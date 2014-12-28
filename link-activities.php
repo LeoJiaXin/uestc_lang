@@ -7,7 +7,7 @@ Template Name:activity
 <div id="main">
   <div id="content-full">
     <div class="title">
-      <h1>Zuixindongtai</h1>
+      <h1>最新动态</h1>
       <h4>The examination site activities</h4>
       <div class="line"></div>
     </div>
