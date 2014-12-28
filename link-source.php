@@ -7,7 +7,7 @@ Template Name:source
 <div id="main">
   <div id="content">
     <div class="title">
-      <h1>Xuexiziyuan</h1>
+      <h1>学习资源</h1>
       <h4>Learning Resource</h4>
       <div class="line"></div>
     </div>
@@ -17,10 +17,10 @@ Template Name:source
           <div class="top-tab tab1">Recommand</div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab2">Abroad</div>
+          <div class="top-tab tab2">国外</div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab3">Study</div>
+          <div class="top-tab tab3">学习</div>
         </div>
         <div class="tab-wrapper">
           <div class="top-tab tab4">Ccccc</div>

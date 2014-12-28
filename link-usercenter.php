@@ -57,10 +57,10 @@ if(isset($_GET['saved']) && $_GET['saved'] == 'true') {
 $user = wp_get_current_user();
 $user_id = $user->ID;
 $user->realname = get_user_meta($user_id,'realname',true);
-$user->address = get_user_meta($user_id,'address',true);
+$user->l_number = get_user_meta($user_id,'l_number',true);
 $user->phone = get_user_meta($user_id,'phone',true);
 $user->qq = get_user_meta($user_id,'qq',true);
-$user->weibo = get_user_meta($user_id,'weibo',true);
+$user->l_identitycard = get_user_meta($user_id,'l_identitycard',true);
 $user->weixin = get_user_meta($user_id,'weixin',true);
 $user->avatar = get_user_meta($user_id,'avatar',true);
 
@@ -96,25 +96,19 @@ get_header(); ?>
       <?php if($warning) {
         echo '<p class="warn">'.$warning.'</p>';
       } ?>
-      <div class="author-avatar info"><label>
-        <span><?php echo get_avatar($user_id,'60'); ?></span>
-        <input type="text" name="user[meta][avatar]" value="<?php echo $user->avatar; ?>" id="user-avatar">
-        <br>
-        <?php if(current_user_can('upload_files')) : ?><button type="button" class="upload-media" data-input-to="#user-avatar">上传</button><?php endif; ?>
-        <small>最好为64*64像素</small>
-        <div class="clear"></div>
-      <label></div>
-      <?php if(!current_user_can('upload_files')) : ?><p class="warn">您当前为普通用户，还不能上传头像，可以拷贝微博头像地址到此处。</p><?php endif; ?>
+     
       <p class="info"><label><span>昵称：</span><input type="text" name="user[nickname]" value="<?php echo $user->nickname; ?>"></label></p>
       <p class="info"><label><span>用户名：</span><input type="text"value="<?php echo $user->user_login; ?>" disabled></label></p>
-      <p class="info"><label><span>真实姓名：</span><input type="text" name="user[meta][realname]" value="<?php echo $user->realname; ?>"></label></p>
-      <p class="info"><label><span>通讯地址：</span><input type="text" name="user[meta][address]" value="<?php echo $user->address; ?>"></label></p>
-      <p class="info"><label><span>手机号码：</span><input type="text" name="user[meta][phone]" value="<?php echo $user->phone; ?>"></label></p>
-      <p class="info"><label><span>学号：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
+      <p class="info"><label><span>真实姓名（必填）：</span><input type="text" name="user[meta][l_realname]" value="<?php echo $user->l_realname; ?>"></label></p>
+      <p class="info"><label><span>身份证号码(必填)：</span><input type="text" name="user[meta][l_identitycard]" value="<?php echo $user->l_identitycard; ?>"></label></p>
+      <p class="info"><label><span>学号：</span><input type="text" name="user[meta][l_number]" value="<?php echo $user->l_number; ?>"></label></p>
+      <p class="info"><label><span>手机号码（必填）：</span><input type="text" name="user[meta][l_phone]" value="<?php echo $user->l_phone; ?>"></label></p>
+      <p class="info"><label><span>英语水平：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
       <p class="info"><label><span>QQ：</span><input type="text" name="user[meta][qq]" value="<?php echo $user->qq; ?>"></label></p>
       <p class="info"><label><span>微信：</span><input type="text" name="user[meta][weixin]" value="<?php echo $user->weixin; ?>"></label></p>
-      <p class="info"><label><span>微博：</span><input type="text" name="user[meta][weibo]" value="<?php echo $user->weibo; ?>"></label></p>
-      <p class="info"><label><span>自我介绍：</span><textarea name="user[description]"><?php echo $user->description; ?></textarea></label></p>
+      
+      <p class="info"><label><span>考试时间：</span><textarea name="user[description]"><?php echo $user->description; ?></textarea></label></p>
+      
       <p class="btns">
         <button type="submit" class="btn btn-submit btn-large">确认</button>
         <a href="<?php echo admin_url('profile.php'); ?>" class="btn btn-cancel btn-large">高级修改</a>

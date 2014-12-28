@@ -2,13 +2,13 @@
 
 // 用户信息
 function fix_user_profile($contactmethods){
-  $contactmethods['realname'] = '真实姓名<small>（）</small>';
-  $contactmethods['address'] = '通信地址<small>（）</small>';
-  $contactmethods['phone'] = '手机号<small>（）</small>';
+  $contactmethods['l_realname'] = '真实姓名<small></small>';
+  $contactmethods['l_number'] = '学号<small></small>';
+  $contactmethods['l_phone'] = '手机号<small></small>';
   $contactmethods['qq'] = 'QQ';
-  $contactmethods['weibo'] = '微博';
+  $contactmethods['l_identitycard'] = '身份证号码';
   $contactmethods['weixin'] = '微信';
-  $contactmethods['avatar'] = '头像图片URL';
+  //$contactmethods['avatar'] = '头像图片URL';
   unset($contactmethods['first_name']);
   unset($contactmethods['last_name']);
   unset($contactmethods['aim']);

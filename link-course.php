@@ -7,7 +7,7 @@ Template Name:course
 <div id="main">
   <div id="content">
     <div class="title">
-      <h1>YuyanKecheng</h1>
+      <h1>语言课程</h1>
       <h4>Training Course</h4>
       <div class="line"></div>
     </div>
