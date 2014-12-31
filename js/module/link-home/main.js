@@ -87,7 +87,6 @@
               var a1;
               $.HomeBanner.$el.html('');
               $.HomeBanner.$el.append($.HomeBanner.template(result));
-              $('#banner').height($('#banner img').height());
               $('#banner img').hide();
               $('#banner img').eq(0).fadeIn();
               a1 = function() {

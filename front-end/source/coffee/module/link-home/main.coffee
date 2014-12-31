@@ -61,6 +61,7 @@ define (require,exports,module)->
             $(this).find('p').css('color','#177BC6')
           mouseout: ()->
             $(this).find('p').css('color','#AAABAD')
+
     Home.Views.Banner = Backbone.View.extend
       template:JST["source/template/link-home/banner.hbs"]
       el: $('#banner')
@@ -73,7 +74,6 @@ define (require,exports,module)->
           success : (result)->
             $.HomeBanner.$el.html ''
             $.HomeBanner.$el.append $.HomeBanner.template result
-            $('#banner').height($('#banner img').height())
             $('#banner img').hide()
             $('#banner img').eq(0).fadeIn()
             a1 = ()->
