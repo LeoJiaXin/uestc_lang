@@ -227,6 +227,28 @@ function show_l_number_column_content($value, $column_name, $user_id) {
 	return $value;
 }
 
+/**
+ * WordPress 后台用户列表显示用户报名时间
+ * uestcwp
+ */
+add_filter('manage_users_columns', 'add_l_time_column');
+function add_l_time_column($columns) {
+	$columns['l_time'] = '选课时间';
+	return $columns;
+}
+
+add_action('manage_users_custom_column',  'show_l_time_column_content', 20, 3);
+
+function show_l_time_column_content($value, $column_name, $user_id) {
+	$user = get_userdata( $user_id );
+	$l_time = $user->l_time;
+	if ( 'l_time' == $column_name )
+		return $l_time;
+	return $value;
+}
+
+
+
 include(dirname(__FILE__)."/admin-options/admin-options.php");
 // 引入扩展库
 $function_files_path = dirname(__FILE__).'/includes';

@@ -49,7 +49,7 @@ endif;
 
 // 如果是刚刚提交了的文章，可以编辑
 if(isset($_GET['saved']) && $_GET['saved'] == 'true') {
-  $warning = '更新成功。';
+   $warning = '更新成功。';
 }
 
 
@@ -104,11 +104,24 @@ get_header(); ?>
       <p class="info"><label><span>学号：</span><input type="text" name="user[meta][l_number]" value="<?php echo $user->l_number; ?>"></label></p>
       <p class="info"><label><span>手机号码（必填）：</span><input type="text" name="user[meta][l_phone]" value="<?php echo $user->l_phone; ?>"></label></p>
       <p class="info"><label><span>英语水平：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
-      <p class="info"><label><span>QQ：</span><input type="text" name="user[meta][qq]" value="<?php echo $user->qq; ?>"></label></p>
+      
       <p class="info"><label><span>微信：</span><input type="text" name="user[meta][weixin]" value="<?php echo $user->weixin; ?>"></label></p>
-      
-      <p class="info"><label><span>考试时间：</span><textarea name="user[description]"><?php echo $user->description; ?></textarea></label></p>
-      
+      <p class="info"><label><span>你选择的时间是：</span><input type="text" name="user[meta][l_time]" value="<?php echo $user->l_time; ?>"></label></p>
+<p>选择课程时间</p>
+    <select style="width:200px;" name="user[meta][l_time]">
+    <option value="1月">1月</option>
+     <option value="2月">2月</option>
+      <option value="3月">3月</option>
+       <option value="4月">4月</option>
+        <option value="6月">6月</option>
+         <option value="7月">7月</option>
+          <option value="8月">8月</option>
+           <option value="9月">9月</option>
+        </select>
+  
+ 
+  <p class="info"><label><span>留言：</span><textarea name="user[description]"> <?php echo $user->description; ?></textarea></label></p>      
+  
       <p class="btns">
         <button type="submit" class="btn btn-submit btn-large">确认</button>
         <a href="<?php echo admin_url('profile.php'); ?>" class="btn btn-cancel btn-large">高级修改</a>
