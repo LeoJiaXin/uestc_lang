@@ -1,11 +1,11 @@
 <div class="tab-body-recmmand">
   <div class="recommand-list">
-  {{#each recommand_list}}
+  {{#each list}}
     <div class="list-element">
       <h4>{{title}}</h4>
       <div class="list-content">
-      {{#each links}}
-        <a href="{{link}}">{{name}}</a>
+      {{#each news}}
+        <a href="#content/{{id}}">{{name}}</a>
       {{/each}}
       </div>
     </div>

@@ -14,19 +14,19 @@ Template Name:source
     <div class="wrapper-tab-body">
       <div class="tabs">
         <div class="tab-wrapper">
-          <div class="top-tab tab1">Recommand</div>
+          <div class="top-tab tab1"><a href="#">Recommand</a></div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab2">国外</div>
+          <div class="top-tab tab2"></div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab3">学习</div>
+          <div class="top-tab tab3"></div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab4">Ccccc</div>
+          <div class="top-tab tab4"></div>
         </div>
         <div class="tab-wrapper">
-          <div class="top-tab tab5">Ddddd</div>
+          <div class="top-tab tab5"></div>
         </div>
       </div>
       <div class="tab-body">

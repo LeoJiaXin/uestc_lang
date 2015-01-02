@@ -279,7 +279,8 @@ input[type="checkbox"] {
   float: left;
   width: 20%;
 }
-.tab-wrapper .top-tab {
+.tab-wrapper .top-tab,
+.tab-wrapper .top-tab a{
   height: 1em;
   padding: 1em 0;
   color: #fff;

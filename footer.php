@@ -12,6 +12,7 @@
 <script src="<?php bloginfo('template_url'); ?>/js/sea.js" id="seajsnode"></script>
 <script>
   var path = '<?php bloginfo('template_url'); ?>';
+  var Root = {};
   if(moduleName) {
     seajs.config({
       paths: {

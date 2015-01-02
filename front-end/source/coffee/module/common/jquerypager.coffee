@@ -79,10 +79,10 @@ define (require,exports,module)->
       pages[pages.length-1].after(nextpage)
     root.append '<div class=\'clear\'></div>'
     @pages = pages
-    @index = 1
+    @index = if options.now? then options.now else 0
     @max = max
     @num = num
-    @select = pages[1]
+    @select = pages[@index]
     $.pager.setState.call(@select,true)
 
     #event

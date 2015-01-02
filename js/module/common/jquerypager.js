@@ -114,10 +114,10 @@
       }
       root.append('<div class=\'clear\'></div>');
       this.pages = pages;
-      this.index = 1;
+      this.index = options.now != null ? options.now : 0;
       this.max = max;
       this.num = num;
-      this.select = pages[1];
+      this.select = pages[this.index];
       $.pager.setState.call(this.select, true);
       clickevent = function() {
         $.pager.index = $.pager.setpage(parseInt($(this).text()));

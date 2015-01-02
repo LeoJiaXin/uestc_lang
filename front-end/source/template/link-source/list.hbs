@@ -1,17 +1,17 @@
 <div class="table">
   <div class="table-row table-header">
-    <div class="table-column-3">col1</div>
-    <div class="table-column-3">col2</div>
-    <div class="table-column-3">col3</div>
-    <div class="table-column-3">col4</div>
+    <div class="table-column-3">name</div>
+    <div class="table-column-3">size</div>
+    <div class="table-column-3">hot</div>
+    <div class="table-column-3">upload</div>
     <div class="clear"></div>
   </div>
   {{#each list}}
   <div class="table-row">
-    <div class="table-column-3"><a href="#">{{a}}</a></div>
-    <div class="table-column-3">{{b}}</div>
-    <div class="table-column-3">{{c}}</div>
-    <div class="table-column-3">{{d}}</div>
+    <div class="table-column-3"><a href="#content/{{id}}">{{name}}</a></div>
+    <div class="table-column-3">{{size}}</div>
+    <div class="table-column-3">{{hot}}</div>
+    <div class="table-column-3">{{upload}}</div>
     <div class="clear"></div>
   </div>
   {{/each}}
