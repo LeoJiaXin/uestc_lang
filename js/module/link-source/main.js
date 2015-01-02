@@ -7,7 +7,6 @@
     require('base/module/common/jquerypager');
     $(function() {
       var Root, Router, Source;
-      $('.tab-wrapper').children('.sec-tabs').hide();
       Source = {
         Models: {},
         Collections: {},

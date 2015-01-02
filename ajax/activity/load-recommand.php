@@ -1,45 +1,37 @@
 <?php
-/*
-*JSON format
-*
-*
-  {
-    basepath: '',
-    latest: [
-      {
-        img: '/images/log.png',
-        title: 'this is a title',
-        desc: 'this is a description,this is a description,this is a description,this is a description,this is a description,this is a description,this is a description',
-      },...
-    ],
-    recent: [
-      {
-        title: 'this is a title.......yeah',
-        watched: 100
-      },...
-    ]
-  }
-*/
 
-  /* this is a example for json data */
   require(dirname(__FILE__).'/../../../../../wp-load.php');
+  require(dirname(__FILE__).'/../common/getViews.php');
+  define(MAX_LINKS,22);
   class obj{}
   $data = new obj;
-  $data->basepath = get_template_directory_uri();
-  $data->latest = array();
-  $data->recent = array();
-  for ($i=0;$i<2;$i++) {
-    $element = new obj;
-    $element->img = '/images/logo.png';
-    $element->title = 'this is a title';
-    $element->desc = 'this is a description,this is a description,this is a description,this is a description,this is a description,this is a description,this is a description';
-    array_push($data->latest, $element);
-  }
-  for ($i=0;$i<12;$i++) {
-    $element = new obj;
-    $element->title = 'this is a title.......yeah';
-    $element->watched = 200;
-    array_push($data->recent, $element);
+  $data->id = get_cat_ID('activity');
+  $data->latenews = array();
+  $data->recentnews = array();
+  $post_arg = array(
+    'numberposts'     => MAX_LINKS,
+    'offset'           => 0,
+    'category'    => $data->id,
+    'orderby'          => 'post_date',
+    'order'            => 'DESC',
+    'post_type'        => 'post',
+    'post_status'      => 'publish',
+    'suppress_filters' => true 
+  );
+  $posts = get_posts($post_arg);
+  for ($j=0;$j<count($posts);$j++) {
+    $tmp = json_decode($posts[$j]->post_content);
+    $tag = new obj;
+    $tag->id = $posts[$j]->ID;
+    $tag->name = $tmp->name;
+    $tag->watched = getPostViews($tag->id);
+    $tag->desc = $tmp->desc;
+    if ($j<2) {
+      $tag->img = $tmp->img;
+      array_push($data->latenews, $tag);
+    }else {
+      array_push($data->recentnews, $tag);
+    }
   }
   echo json_encode($data);
   ?>

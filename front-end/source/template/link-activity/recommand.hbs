@@ -1,34 +1,30 @@
 <div class="wrapper-latest-activity">
-  {{#each latest}}
-  {{#if @first}}
+  {{#each latenews}}
   <div class="latest-activity">
-    <img src="{{../../basepath}}{{img}}" alt="">
+    {{#if @first}}
+    <img src="{{img}}" alt="">
     <div class="activity-content">
-      <a href="#">{{title}}</a>
+      <a href="#content/{{id}}">{{name}}</a>
       <p>{{desc}}</p>
     </div>
-    <div class="clear"></div>
-  </div>
-  {{/if}}
-  {{#if @last}}
-  <div class="latest-activity">
+    {{else}}
     <div class="activity-content">
-      <a href="#">{{title}}</a>
+      <a href="#content/{{id}}">{{name}}</a>
       <p>{{desc}}</p>
     </div>
-    <img src="{{../../basepath}}{{img}}" alt="">
+    <img src="{{img}}" alt="">
+    {{/if}}
     <div class="clear"></div>
   </div>
-  {{/if}}
   {{/each}}
 </div>
 <div class="wrapper-recent-activity">
-  <h3>Recent<a href="#" class="more">all>></a></h3>
+  <h3>Recent<a href="#list/sectype{{id}}/0" class="more">all>></a></h3>
   <div class="recent-activities">
-    {{#each recent}}
+    {{#each recentnews}}
     <div class="activity">
-      <a href="#">{{title}}</a>
-      <p>{{watched}} watched</p>
+      <a href="#content/{{id}}">{{name}}</a>
+      <p>{{watched}}</p>
     </div>
     {{/each}}
     <div class="clear"></div>

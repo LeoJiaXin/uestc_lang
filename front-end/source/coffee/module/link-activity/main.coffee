@@ -2,87 +2,142 @@ define (require,exports,module)->
   #加载backbone和语言课程页面的html模板(handlebars)
   Backbone = require 'backbone'
   require 'base/template/link-activity'
-  
+  require 'base/module/common/jquerypager'
+
   #页面加载完后执行如下/jquery的ready
   $ ()->
     #推荐页面，也是语言课程的默认页面Activity
     Activity = 
-      Models:{}
-      Collections:{}
-      Events:{}
-    #模型:推荐页面数据
+      Models : {}
+      Collections : {}
+      Views : {}
 
-    Activity.View = Backbone.View.extend
-      recommand:JST["source/template/link-activity/recommand.hbs"]
-      list:JST["source/template/link-activity/list.hbs"]
-      content:JST["source/template/link-activity/content.hbs"]
-      el: $('#link-activity')
-      torecommand: ()->
-        $.ajax
-          url : path+'/ajax/activity/load-recommand.php'
-          dataType : 'json'
-          type : 'GET'
-          timeout : 8000
-          success : (result)->
-            $.ActivityView.$el.html ''
-            $.ActivityView.$el.append $.ActivityView.recommand result
-            $('.more').bind 'click',(e)->
-              e.preventDefault()
-              $.ActivityView.tolist()
-            $('.latest-activity a,.activity a').bind 'click',(e)->
-              e.preventDefault()
-              $.ActivityView.tocontent()
+    Activity.Models.Recommand = Backbone.Model.extend
+      defaults :
+        list : undefined
+        group : undefined
+      url : path+'/ajax/activity/load-recommand.php'
 
-          error : (xhr,textStatus)->
-            if textStatus is 'timeout'
-              console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-            else
-              console.log '网络异常，请检查你的网络是否有问题。'
+
+    Activity.Models.List = Backbone.Model.extend
+      defaults :
+        name : ''
+        time : '0 hour'
+        num : 0
+        max : 0
+
+    Activity.Models.Content = Backbone.Model.extend
+      defaults :
+        name : ''
+        time : '0 hour'
+        num : 0
+        max : 0
+        description : ''
+
+    Activity.Collections.List = Backbone.Collection.extend
+      model : Activity.Models.List
+      pageIndex : 0
+      pageSum : 0
+      sectypeid : undefined
+      url : ()->
+        return path+'/ajax/activity/load-list.php?page_pos='+@pageIndex+('&sec_type='+@sectypeid if @sectypeid?)
+
+    Activity.Views.Recommand = Backbone.View.extend
+      template : JST["source/template/link-activity/recommand.hbs"]
+      el : $('#link-activity')
+      initialize : ()->
         return
-      tolist: ()->
-        $.ajax
-          url : path+'/ajax/activity/load-list.php'
-          dataType : 'json'
-          type : 'GET'
-          timeout : 8000
-          success : (result)->
-            $.ActivityView.$el.html ''
-            $.ActivityView.$el.append $.ActivityView.list result
-            $('.table-column-3 a').bind 'click',(e)->
-              e.preventDefault()
-              $.ActivityView.tocontent()
-            require 'base/module/common/jquerypager'
-            $.pager.createbelow($('#list-pager'),{
-              header:1,
-              next:1,
-              pageNum:5,
-              max:20,
-              dopage: (index)-> console.log('you have click page'+index);
-            })
-          error : (xhr,textStatus)->
-            if textStatus is 'timeout'
-              console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-            else
-              console.log '网络异常，请检查你的网络是否有问题。'
-        return
-      tocontent: ()->
-        $.ajax
-          url : path+'/ajax/activity/load-content.php'
-          dataType : 'json'
-          type : 'GET'
-          timeout : 8000
-          success : (result)->
-            $.ActivityView.$el.html ''
-            $.ActivityView.$el.append $.ActivityView.content result
-          error : (xhr,textStatus)->
-            if textStatus is 'timeout'
-              console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-            else
-              console.log '网络异常，请检查你的网络是否有问题。'
+      render : ()->
+        @$el.html ''
+        @$el.html @template @model.attributes
         return
 
-    $.ActivityView = new Activity.View()
+    Activity.Views.List = Backbone.View.extend
+      template : JST["source/template/link-activity/list.hbs"]
+      el : $('#link-activity')
+      initialize : ()->
+        return
+      render : ()->
+        tmp =
+          list : []
+        tmp.list.push @model.models[num].attributes for num in [0...@model.length]
+        @$el.html ''
+        @$el.append @template tmp
+        $.pager.createbelow($('#list-pager'),{
+          now : @model.pageIndex+1,
+          header:1,
+          next:1,
+          pageNum:5,
+          max : @model.pageSum,
+          dopage: (index)->
+            Root.Router.navigate 'list/sectype'+Root.List.Model.sectypeid+'/'+(index-1),{replace:true,trigger:true}
+        })
+        return
 
-    #start load pagedata
-    $.ActivityView.torecommand()
+    Activity.Views.Content = Backbone.View.extend
+      template : JST["source/template/link-activity/content.hbs"]
+      el : $('#link-activity')
+      initialize : ()->
+        # @listenTo @model,'change',@render
+        return
+      render : ()->
+        @$el.html ''
+        @$el.html @template @model.attributes
+
+    Root =
+      Recommand : {}
+      List : {}
+      Content : {}
+      Side : {}
+
+    Root.Recommand.Model = new Activity.Models.Recommand()
+    Root.List.Model = new Activity.Collections.List()
+    Root.Content.Model = new Activity.Models.Content()
+
+    Root.Recommand.View = new Activity.Views.Recommand
+      model : Root.Recommand.Model
+    Root.List.View = new Activity.Views.List
+      model : Root.List.Model
+    Root.Content.View = new Activity.Views.Content
+      model : Root.Content.Model
+
+    Router = Backbone.Router.extend
+      routes : 
+        '' : 'torec'
+        'list/sectype:sectype/:pageindex' : 'tolist'
+        'content/:id' : 'tocontent'
+
+    Root.Router = new Router()
+
+    Root.Router.on 'route:torec',()->
+      Root.Recommand.Model.fetch
+        reset : true
+        success : (result)->
+          Root.Recommand.View.render()
+          return
+      return
+
+    Root.Router.on 'route:tolist',(sectypeid,pageIndex)->
+      Root.List.Model.sectypeid = sectypeid;
+      Root.List.Model.pageIndex = parseInt(pageIndex);
+      Root.List.Model.fetch
+        reset : true
+        success : ()->
+          if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
+            Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
+          Root.List.View.render()
+
+    Root.Router.on 'route:tocontent',(id)->
+      $.ajax
+        url : path+'/ajax/activity/load-content.php'
+        data : {id : id}
+        dataType : 'json'
+        type : 'get'
+        timeout : 8000
+        success : (result)->
+          if result.id?
+            Root.Content.Model.set result
+            Root.Content.View.render()
+
+    Backbone.history.start()
   return

@@ -1,31 +1,21 @@
 <?php
-/*
-*JSON format
-*
-*
-  {
-    title : 'this is a title',
-    content : 'this is content,this is content,this is content,this is content,this is content'
+  require(dirname(__FILE__).'/../../../../../wp-load.php');
+  require(dirname(__FILE__).'/../common/getViews.php');
+  class obj{}   
+  $id = $_GET['id'];
+  if ($id) {
+    $data = get_post($id);
+    if ($data) {
+      $source = json_decode($data->post_content);
+      if ($source) {
+        setPostViews($id);
+        $source->id = $data->ID;
+        echo json_encode($source);
+        exit;
+      }
+    }
   }
-*/
-
-  /* this is a example for json data */
-  class obj{}
-  $data = new obj;
-  $data->title = 'this is a title';
-  $data->content = 'this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......
-  this is content,this is content,this is content,this is content,this is content
-  hi,I\'m content, yeah I am content......';
-  echo json_encode($data);
+  $source = new obj;
+  $source->state = "failed";
+  echo json_encode($source);
 ?>

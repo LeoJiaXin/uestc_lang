@@ -437,9 +437,9 @@ input[type="checkbox"] {
   border-right: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
 }
-.employ-1 {border-top: 5px solid #0099FF;}
-.employ-2 {border-top: 5px solid #FF9933;}
-.employ-3 {border-top: 5px solid #FF0033;}
+.employ-0 {border-top: 5px solid #0099FF;}
+.employ-1 {border-top: 5px solid #FF9933;}
+.employ-2 {border-top: 5px solid #FF0033;}
 
 .employ-type h3 {
   height: 1em;

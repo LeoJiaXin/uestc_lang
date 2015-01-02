@@ -1,57 +1,22 @@
-<div class="employ-type employ-1">
-  <h3>abroad<a href="#" class="more">more</a></h3>
-  {{#each abroad.big}}
+{{#each list}}
+<div class="employ-type employ-{{@index}}">
+  <h3>{{title}}<a href="#list/sectype{{id}}/0" class="more">more</a></h3>
+  {{#each news}}
+  {{#if img}}
   <div class="employ-big">
-    <img src="{{../basepath}}/images/{{img}}" alt="">
+    <img src="{{img}}" alt="">
     <div class="employ-content">
-      <a href="#">{{title}}</a>
+      <a href="#content/{{id}}">{{name}}</a>
         <p>{{desc}}</p>
     </div>
     <div class="clear"></div>
   </div>
-  {{/each}}
-  {{#each abroad.small}}
+  {{else}}
   <div class="employ-small">
-    <a href="#">{{title}}</a>
+    <a href="#content/{{id}}">{{name}}</a>
     <p>{{desc}}</p>
   </div>
+  {{/if}}
   {{/each}}
 </div>
-<div class="employ-type employ-2">
-  <h3>study<a href="#" class="more">more</a></h3>
-  {{#each study.big}}
-  <div class="employ-big">
-    <img src="{{../basepath}}/images/{{img}}" alt="">
-    <div class="employ-content">
-      <a href="#">{{title}}</a>
-        <p>{{desc}}</p>
-    </div>
-    <div class="clear"></div>
-  </div>
-  {{/each}}
-  {{#each study.small}}
-  <div class="employ-small">
-    <a href="#">{{title}}</a>
-    <p>{{desc}}</p>
-  </div>
-  {{/each}}
-</div>
-<div class="employ-type employ-3">
-  <h3>work<a href="#" class="more">more</a></h3>
-  {{#each work.big}}
-  <div class="employ-big">
-    <img src="{{../basepath}}/images/{{img}}" alt="">
-    <div class="employ-content">
-      <a href="#">{{title}}</a>
-        <p>{{desc}}</p>
-    </div>
-    <div class="clear"></div>
-  </div>
-  {{/each}}
-  {{#each work.small}}
-  <div class="employ-small">
-    <a href="#">{{title}}</a>
-    <p>{{desc}}</p>
-  </div>
-  {{/each}}
-</div>
+{{/each}}

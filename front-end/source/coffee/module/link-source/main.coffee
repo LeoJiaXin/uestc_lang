@@ -6,9 +6,6 @@ define (require,exports,module)->
   require 'base/module/common/jquerypager'
   #页面加载完后执行如下/jquery的ready
   $ ()->
-    #init page first
-    $('.tab-wrapper').children('.sec-tabs').hide()
-
     #define 语言课程页面Source
     Source = 
       Models : {}

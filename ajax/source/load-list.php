@@ -11,7 +11,7 @@
     ]
 */
   require(dirname(__FILE__).'/../../../../../wp-load.php');
-  define(MAX_NUMBER_OF_SOURCES_IN_A_PAGE,3);
+  define(MAX_NUMBER_OF_SOURCES_IN_A_PAGE,25);
   $list = array();
   $page_index = $_GET['page_pos']?$_GET['page_pos']:0;
   $sec_type = $_GET['sec_type'];
