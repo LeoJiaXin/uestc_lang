@@ -3,10 +3,10 @@
 // 用户信息
 function fix_user_profile($contactmethods){
   $contactmethods['l_realname'] = '真实姓名<small></small>';
-  $contactmethods['l_number'] = '学号<small></small>';
-  $contactmethods['l_phone'] = '手机号<small></small>';
-  $contactmethods['qq'] = 'QQ';
   $contactmethods['l_identitycard'] = '身份证号码';
+  $contactmethods['l_phone'] = '手机号<small></small>';
+  $contactmethods['l_number'] = '学号<small></small>';
+  $contactmethods['l_time'] = '考试时间';
   $contactmethods['weixin'] = '微信';
   //$contactmethods['avatar'] = '头像图片URL';
   unset($contactmethods['first_name']);
