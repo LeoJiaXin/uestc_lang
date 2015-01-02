@@ -1,5 +1,25 @@
 define (require,exports,module)->
   $.pager = {}
+  $.pager.down =  
+    'position': 'relative'
+    'float': 'left'
+    'margin': '0 0.3em'
+    'padding': '0.3em 0.7em'
+    'background-color': '#fff'
+    'color': '#0099CC'
+    'border': '2px solid #0099CC'
+  $.pager.up = 
+    'background-color': '#0099CC'
+    'color': '#fff'
+    'cursor': 'pointer'
+  $.pager.selected = 
+    'background-color': '#fff'
+    'color': '#000'
+    'border': '2px solid #fff'
+  $.pager.downevent = ()-> $(this).css($.pager.down)
+  $.pager.upevent = ()-> $(this).css($.pager.up)
+  $.pager.selectedevent = ()-> $(this).css($.pager.selected)
+
   $.pager.setState = (isactive)->
     if isactive
       @css($.pager.selected).hover($.pager.selectedevent,$.pager.selectedevent)
@@ -42,25 +62,6 @@ define (require,exports,module)->
     #initialize
     return if not options? or not root?
     @root = root
-    @down =  
-      'position': 'relative'
-      'float': 'left'
-      'margin': '0 0.3em'
-      'padding': '0.3em 0.7em'
-      'background-color': '#fff'
-      'color': '#0099CC'
-      'border': '2px solid #0099CC'
-    @up = 
-      'background-color': '#0099CC'
-      'color': '#fff'
-      'cursor': 'pointer'
-    @selected = 
-      'background-color': '#fff'
-      'color': '#000'
-      'border': '2px solid #fff'
-    @downevent = ()-> $(this).css($.pager.down)
-    @upevent = ()-> $(this).css($.pager.up)
-    @selectedevent = ()-> $(this).css($.pager.selected)
     pages = [];
     max = if options.max? then options.max else 5
     num = if options.pageNum? then options.pageNum else 5

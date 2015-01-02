@@ -1,7 +1,7 @@
 <?php
   require(dirname(__FILE__).'/../../../../../wp-load.php');
   require(dirname(__FILE__).'/../common/getViews.php');
-  class obj{}   
+  class obj{}
   $id = $_GET['id'];
   if ($id) {
     $data = get_post($id);

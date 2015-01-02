@@ -38,14 +38,12 @@
         }
       });
       Course.Models.Side = Backbone.Model.extend({
-        defaults: {
-          a: 0
-        }
+        url: path + '/ajax/course/load-best-student.php'
       });
       Course.Collections.List = Backbone.Collection.extend({
         model: Course.Models.List,
         pageIndex: 0,
-        pageSum: 0,
+        pageSum: 1,
         sectypeid: void 0,
         url: function() {
           return path + '/ajax/course/load-list.php?page_pos=' + this.pageIndex + (this.sectypeid != null ? '&sec_type=' + this.sectypeid : void 0);
@@ -58,6 +56,7 @@
         render: function() {
           this.$el.html('');
           this.$el.html(this.template(this.model.attributes));
+          Utils.resize();
         }
       });
       Course.Views.List = Backbone.View.extend({
@@ -74,6 +73,7 @@
           }
           this.$el.html('');
           this.$el.append(this.template(tmp));
+          Utils.resize();
           $.pager.createbelow($('#list-pager'), {
             now: this.model.pageIndex + 1,
             header: 1,
@@ -95,11 +95,21 @@
         initialize: function() {},
         render: function() {
           this.$el.html('');
-          return this.$el.html(this.template(this.model.attributes));
+          this.$el.html(this.template(this.model.attributes));
+          return Utils.resize();
         }
       });
       Course.Views.Side = Backbone.View.extend({
-        template: JST["source/template/link-course/sidebar.hbs"]
+        template: JST["source/template/link-course/sidebar.hbs"],
+        el: $('#sidebar'),
+        initialize: function() {
+          this.listenTo(this.model, 'change', this.render);
+        },
+        render: function() {
+          this.$el.html('');
+          this.$el.html(this.template(this.model.attributes));
+          return Utils.resize();
+        }
       });
       Root = {
         Recommand: {},
@@ -128,6 +138,16 @@
           '': 'torec',
           'list/sectype:sectype/:pageindex': 'tolist',
           'content/:id': 'tocontent'
+        },
+        checkback: function() {
+          if (Root.Side.Model.attributes.list == null) {
+            this.navigate('', {
+              trigger: true,
+              replace: true
+            });
+            return false;
+          }
+          return true;
         }
       });
       Root.Router = new Router();
@@ -148,37 +168,43 @@
             }
           }
         });
+        if (Root.Side.Model.attributes.list == null) {
+          Root.Side.Model.fetch();
+        }
       });
       Root.Router.on('route:tolist', function(sectypeid, pageIndex) {
-        Root.List.Model.sectypeid = sectypeid;
-        Root.List.Model.pageIndex = parseInt(pageIndex);
-        return Root.List.Model.fetch({
-          reset: true,
-          success: function() {
-            if ((Root.List.Model.models[0] != null) && (Root.List.Model.models[0].attributes.sum != null)) {
-              Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum;
+        if (this.checkback()) {
+          Root.List.Model.sectypeid = sectypeid;
+          Root.List.Model.pageIndex = parseInt(pageIndex);
+          return Root.List.Model.fetch({
+            reset: true,
+            success: function() {
+              if ((Root.List.Model.models[0] != null) && (Root.List.Model.models[0].attributes.sum != null)) {
+                Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum;
+              }
+              return Root.List.View.render();
             }
-            return Root.List.View.render();
-          }
-        });
+          });
+        }
       });
       Root.Router.on('route:tocontent', function(id) {
-        console.log('yes');
-        return $.ajax({
-          url: path + '/ajax/course/load-content.php',
-          data: {
-            id: id
-          },
-          dataType: 'json',
-          type: 'get',
-          timeout: 8000,
-          success: function(result) {
-            if (result.id != null) {
-              Root.Content.Model.set(result);
-              return Root.Content.View.render();
+        if (this.checkback()) {
+          return $.ajax({
+            url: path + '/ajax/course/load-content.php',
+            data: {
+              id: id
+            },
+            dataType: 'json',
+            type: 'get',
+            timeout: 8000,
+            success: function(result) {
+              if (result.id != null) {
+                Root.Content.Model.set(result);
+                return Root.Content.View.render();
+              }
             }
-          }
-        });
+          });
+        }
       });
       Backbone.history.start();
       showtab = function() {

@@ -35,13 +35,12 @@ define (require,exports,module)->
         description : ''
 
     Source.Models.Side = Backbone.Model.extend
-      defaults :
-        a : 0
+      url : path+'/ajax/source/load-hot-download.php'
 
     Source.Collections.List = Backbone.Collection.extend
       model : Source.Models.List
       pageIndex : 0
-      pageSum : 0
+      pageSum : 1
       sectypeid : undefined
       url : ()->
         return path+'/ajax/source/load-list.php?page_pos='+@pageIndex+('&sec_type='+@sectypeid if @sectypeid?)
@@ -54,6 +53,7 @@ define (require,exports,module)->
       render : ()->
         @$el.html ''
         @$el.html @template @model.attributes
+        Utils.resize()
         return
 
     Source.Views.List = Backbone.View.extend
@@ -67,6 +67,7 @@ define (require,exports,module)->
         tmp.list.push @model.models[num].attributes for num in [0...@model.length]
         @$el.html ''
         @$el.append @template tmp
+        Utils.resize()
         $.pager.createbelow($('#list-pager'),{
           now : @model.pageIndex+1,
           header:1,
@@ -87,9 +88,18 @@ define (require,exports,module)->
       render : ()->
         @$el.html ''
         @$el.html @template @model.attributes
+        Utils.resize()
 
     Source.Views.Side = Backbone.View.extend
       template : JST["source/template/link-source/sidebar.hbs"]
+      el : $('#sidebar')
+      initialize : ()->
+        @listenTo @model,'change',@render
+        return
+      render : ()->
+        @$el.html ''
+        @$el.html @template @model.attributes
+        Utils.resize()
 
     Root =
       Recommand : {}
@@ -116,6 +126,11 @@ define (require,exports,module)->
         '' : 'torec'
         'list/sectype:sectype/:pageindex' : 'tolist'
         'content/:id' : 'tocontent'
+      checkback : ()->
+        if not Root.Side.Model.attributes.links?
+          @navigate '',{trigger: true, replace: true}
+          return false
+        return true;
 
     Root.Router = new Router()
 
@@ -126,55 +141,34 @@ define (require,exports,module)->
           Root.Recommand.View.render()
           $('.top-tab').eq(num+1).html('<a href="#list/sectype'+result.attributes.group[num].id+'/0">'+result.attributes.group[num].name+'</a>') for num in [0..3]
           return
+      if not Root.Side.Model.attributes.links?
+        Root.Side.Model.fetch()
       return
 
     Root.Router.on 'route:tolist',(sectypeid,pageIndex)->
-      Root.List.Model.sectypeid = sectypeid;
-      Root.List.Model.pageIndex = parseInt(pageIndex);
-      Root.List.Model.fetch
-        reset : true
-        success : ()->
-          if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
-            Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
-          Root.List.View.render()
+      if @checkback()
+        Root.List.Model.sectypeid = sectypeid;
+        Root.List.Model.pageIndex = parseInt(pageIndex);
+        Root.List.Model.fetch
+          reset : true
+          success : ()->
+            if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
+              Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
+            Root.List.View.render()
 
     Root.Router.on 'route:tocontent',(id)->
-      console.log 'yes'
-      $.ajax
-        url : path+'/ajax/source/load-content.php'
-        data : {id : id}
-        dataType : 'json'
-        type : 'get'
-        timeout : 8000
-        success : (result)->
-          if result.id?
-            Root.Content.Model.set result
-            Root.Content.View.render()
+      if @checkback()
+        $.ajax
+          url : path+'/ajax/source/load-content.php'
+          data : {id : id}
+          dataType : 'json'
+          type : 'get'
+          timeout : 8000
+          success : (result)->
+            if result.id?
+              Root.Content.Model.set result
+              Root.Content.View.render()
 
     Backbone.history.start()
 
-    #define sidebar
-    # Sidebar = {}
-    # #for the view
-    # Sidebar.View = Backbone.View.extend
-    #   template: JST["source/template/link-source/sidebar.hbs"]
-    #   el: $('#sidebar')
-    #   render:()->
-    #     $.ajax
-    #       url : path+'/ajax/source/load-hot-download.php'
-    #       dataType : 'json'
-    #       type : 'GET'
-    #       timeout : 8000
-    #       success : (result)->
-    #         $.SidebarView.$el.html ''
-    #         $.SidebarView.$el.append $.SidebarView.template result
-    #         $('#sidebar a').bind 'click',(e)->
-    #           e.preventDefault()
-    #           $.SourceView.tocontent()
-    #       error : (xhr,textStatus)->
-    #         if textStatus is 'timeout'
-    #           console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-    #         else
-    #           console.log '网络异常，请检查你的网络是否有问题。'
-    #     return
   return

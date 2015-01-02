@@ -36,7 +36,7 @@ define (require,exports,module)->
     Employ.Collections.List = Backbone.Collection.extend
       model : Employ.Models.List
       pageIndex : 0
-      pageSum : 0
+      pageSum : 1
       sectypeid : undefined
       url : ()->
         return path+'/ajax/employ/load-list.php?page_pos='+@pageIndex+('&sec_type='+@sectypeid if @sectypeid?)

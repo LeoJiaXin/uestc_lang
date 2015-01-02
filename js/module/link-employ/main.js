@@ -38,7 +38,7 @@
       Employ.Collections.List = Backbone.Collection.extend({
         model: Employ.Models.List,
         pageIndex: 0,
-        pageSum: 0,
+        pageSum: 1,
         sectypeid: void 0,
         url: function() {
           return path + '/ajax/employ/load-list.php?page_pos=' + this.pageIndex + (this.sectypeid != null ? '&sec_type=' + this.sectypeid : void 0);

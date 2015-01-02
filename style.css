@@ -421,7 +421,8 @@ input[type="checkbox"] {
   color: red;
 }
 .piece a:hover {
-  font-weight: 600;
+  background-color: #f4f4f4;
+  color: #c00;
 }
 /*
   link-employ

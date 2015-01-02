@@ -37,7 +37,7 @@ define (require,exports,module)->
     Activity.Collections.List = Backbone.Collection.extend
       model : Activity.Models.List
       pageIndex : 0
-      pageSum : 0
+      pageSum : 1
       sectypeid : undefined
       url : ()->
         return path+'/ajax/activity/load-list.php?page_pos='+@pageIndex+('&sec_type='+@sectypeid if @sectypeid?)

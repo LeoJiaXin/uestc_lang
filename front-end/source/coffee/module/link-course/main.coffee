@@ -38,13 +38,12 @@ define (require,exports,module)->
         description : ''
 
     Course.Models.Side = Backbone.Model.extend
-      defaults :
-        a : 0
+      url : path+'/ajax/course/load-best-student.php'
 
     Course.Collections.List = Backbone.Collection.extend
       model : Course.Models.List
       pageIndex : 0
-      pageSum : 0
+      pageSum : 1
       sectypeid : undefined
       url : ()->
         return path+'/ajax/course/load-list.php?page_pos='+@pageIndex+('&sec_type='+@sectypeid if @sectypeid?)
@@ -57,6 +56,7 @@ define (require,exports,module)->
       render : ()->
         @$el.html ''
         @$el.html @template @model.attributes
+        Utils.resize()
         return
 
     Course.Views.List = Backbone.View.extend
@@ -70,6 +70,7 @@ define (require,exports,module)->
         tmp.list.push @model.models[num].attributes for num in [0...@model.length]
         @$el.html ''
         @$el.append @template tmp
+        Utils.resize()
         $.pager.createbelow($('#list-pager'),{
           now : @model.pageIndex+1,
           header:1,
@@ -90,9 +91,18 @@ define (require,exports,module)->
       render : ()->
         @$el.html ''
         @$el.html @template @model.attributes
+        Utils.resize()
 
     Course.Views.Side = Backbone.View.extend
       template : JST["source/template/link-course/sidebar.hbs"]
+      el : $('#sidebar')
+      initialize : ()->
+        @listenTo @model,'change',@render
+        return
+      render : ()->
+        @$el.html ''
+        @$el.html @template @model.attributes
+        Utils.resize()
 
     Root =
       Recommand : {}
@@ -119,6 +129,11 @@ define (require,exports,module)->
         '' : 'torec'
         'list/sectype:sectype/:pageindex' : 'tolist'
         'content/:id' : 'tocontent'
+      checkback : ()->
+        if not Root.Side.Model.attributes.list?
+          @navigate '',{trigger: true, replace: true}
+          return false
+        return true;
 
     Root.Router = new Router()
 
@@ -133,30 +148,33 @@ define (require,exports,module)->
             for link in result.attributes.group[num].child
               $('.sec-tabs').eq(num).append('<a href="#/list/sectype'+link.id+'/0">'+link.name+'</a>')
           return
+      if not Root.Side.Model.attributes.list?
+        Root.Side.Model.fetch()
       return
 
     Root.Router.on 'route:tolist',(sectypeid,pageIndex)->
-      Root.List.Model.sectypeid = sectypeid;
-      Root.List.Model.pageIndex = parseInt(pageIndex);
-      Root.List.Model.fetch
-        reset : true
-        success : ()->
-          if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
-            Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
-          Root.List.View.render()
+      if @checkback()
+        Root.List.Model.sectypeid = sectypeid;
+        Root.List.Model.pageIndex = parseInt(pageIndex);
+        Root.List.Model.fetch
+          reset : true
+          success : ()->
+            if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
+              Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
+            Root.List.View.render()
 
     Root.Router.on 'route:tocontent',(id)->
-      console.log 'yes'
-      $.ajax
-        url : path+'/ajax/course/load-content.php'
-        data : {id : id}
-        dataType : 'json'
-        type : 'get'
-        timeout : 8000
-        success : (result)->
-          if result.id?
-            Root.Content.Model.set result
-            Root.Content.View.render()
+      if @checkback()
+        $.ajax
+          url : path+'/ajax/course/load-content.php'
+          data : {id : id}
+          dataType : 'json'
+          type : 'get'
+          timeout : 8000
+          success : (result)->
+            if result.id?
+              Root.Content.Model.set result
+              Root.Content.View.render()
 
     Backbone.history.start()
 
@@ -170,25 +188,4 @@ define (require,exports,module)->
         sec.fadeOut()
     $('.tab-wrapper').hover showtab,hidetab
 
-    # #define sidebar
-    # Sidebar = {}
-    # #for the view
-    # Sidebar.View = Backbone.View.extend
-    #   template: JST["source/template/link-course/sidebar.hbs"]
-    #   el: $('#sidebar')
-    #   render:()->
-    #     $.ajax
-    #       url : path+'/ajax/course/load-best-student.php'
-    #       dataType : 'json'
-    #       type : 'GET'
-    #       timeout : 8000
-    #       success : (result)->
-    #         $.SidebarView.$el.html ''
-    #         $.SidebarView.$el.append $.SidebarView.template result
-    #       error : (xhr,textStatus)->
-    #         if textStatus is 'timeout'
-    #           console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-    #         else
-    #           console.log '网络异常，请检查你的网络是否有问题。'
-    #     return
   return

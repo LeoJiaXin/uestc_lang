@@ -1,6 +1,34 @@
 (function() {
   define(function(require, exports, module) {
     $.pager = {};
+    $.pager.down = {
+      'position': 'relative',
+      'float': 'left',
+      'margin': '0 0.3em',
+      'padding': '0.3em 0.7em',
+      'background-color': '#fff',
+      'color': '#0099CC',
+      'border': '2px solid #0099CC'
+    };
+    $.pager.up = {
+      'background-color': '#0099CC',
+      'color': '#fff',
+      'cursor': 'pointer'
+    };
+    $.pager.selected = {
+      'background-color': '#fff',
+      'color': '#000',
+      'border': '2px solid #fff'
+    };
+    $.pager.downevent = function() {
+      return $(this).css($.pager.down);
+    };
+    $.pager.upevent = function() {
+      return $(this).css($.pager.up);
+    };
+    $.pager.selectedevent = function() {
+      return $(this).css($.pager.selected);
+    };
     $.pager.setState = function(isactive) {
       if (isactive) {
         this.css($.pager.selected).hover($.pager.selectedevent, $.pager.selectedevent);
@@ -62,34 +90,6 @@
         return;
       }
       this.root = root;
-      this.down = {
-        'position': 'relative',
-        'float': 'left',
-        'margin': '0 0.3em',
-        'padding': '0.3em 0.7em',
-        'background-color': '#fff',
-        'color': '#0099CC',
-        'border': '2px solid #0099CC'
-      };
-      this.up = {
-        'background-color': '#0099CC',
-        'color': '#fff',
-        'cursor': 'pointer'
-      };
-      this.selected = {
-        'background-color': '#fff',
-        'color': '#000',
-        'border': '2px solid #fff'
-      };
-      this.downevent = function() {
-        return $(this).css($.pager.down);
-      };
-      this.upevent = function() {
-        return $(this).css($.pager.up);
-      };
-      this.selectedevent = function() {
-        return $(this).css($.pager.selected);
-      };
       pages = [];
       max = options.max != null ? options.max : 5;
       num = options.pageNum != null ? options.pageNum : 5;
