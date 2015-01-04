@@ -1,8 +1,8 @@
-{{#each images}}
-<img src="{{../basepath}}{{img}}" alt="">
+{{#each banners}}
+<img src="{{img}}" alt="">
 {{/each}}
 <div class="wrapper-banner-switch">
-    {{#each images}}
+    {{#each banners}}
     <div class="banner-switch{{#if @first}} select{{/if}}"></div>
     {{/each}}
     <div class="clear"></div>

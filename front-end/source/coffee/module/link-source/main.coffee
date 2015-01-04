@@ -126,48 +126,49 @@ define (require,exports,module)->
         '' : 'torec'
         'list/sectype:sectype/:pageindex' : 'tolist'
         'content/:id' : 'tocontent'
-      checkback : ()->
+      initPage : (torec)->
+        Root.Recommand.Model.fetch
+          reset : true
+          success : (result)->
+            if torec
+              Root.Recommand.View.render()
+            $('.top-tab').eq(num+1).html('<a href="#list/sectype'+result.attributes.group[num].id+'/0">'+result.attributes.group[num].name+'</a>') for num in [0..3]
+            return
         if not Root.Side.Model.attributes.links?
-          @navigate '',{trigger: true, replace: true}
-          return false
-        return true;
+          Root.Side.Model.fetch()
+        return
+      checkinit : ()->
+        if not Root.Side.Model.attributes.links?
+          @initPage false
 
     Root.Router = new Router()
 
     Root.Router.on 'route:torec',()->
-      Root.Recommand.Model.fetch
-        reset : true
-        success : (result)->
-          Root.Recommand.View.render()
-          $('.top-tab').eq(num+1).html('<a href="#list/sectype'+result.attributes.group[num].id+'/0">'+result.attributes.group[num].name+'</a>') for num in [0..3]
-          return
-      if not Root.Side.Model.attributes.links?
-        Root.Side.Model.fetch()
-      return
+      @initPage true
 
     Root.Router.on 'route:tolist',(sectypeid,pageIndex)->
-      if @checkback()
-        Root.List.Model.sectypeid = sectypeid;
-        Root.List.Model.pageIndex = parseInt(pageIndex);
-        Root.List.Model.fetch
-          reset : true
-          success : ()->
-            if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
-              Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
-            Root.List.View.render()
+      @checkinit()
+      Root.List.Model.sectypeid = sectypeid;
+      Root.List.Model.pageIndex = parseInt(pageIndex);
+      Root.List.Model.fetch
+        reset : true
+        success : ()->
+          if Root.List.Model.models[0]? and Root.List.Model.models[0].attributes.sum?
+            Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum
+          Root.List.View.render()
 
     Root.Router.on 'route:tocontent',(id)->
-      if @checkback()
-        $.ajax
-          url : path+'/ajax/source/load-content.php'
-          data : {id : id}
-          dataType : 'json'
-          type : 'get'
-          timeout : 8000
-          success : (result)->
-            if result.id?
-              Root.Content.Model.set result
-              Root.Content.View.render()
+      @checkinit()
+      $.ajax
+        url : path+'/ajax/source/load-content.php'
+        data : {id : id}
+        dataType : 'json'
+        type : 'get'
+        timeout : 8000
+        success : (result)->
+          if result.id?
+            Root.Content.Model.set result
+            Root.Content.View.render()
 
     Backbone.history.start()
 

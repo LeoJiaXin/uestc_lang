@@ -7,31 +7,61 @@
       var Home;
       Home = {
         Views: {},
-        Models: {},
-        Collections: {},
-        Events: {}
+        Models: {}
       };
+      Home.Models.Images = Backbone.Model.extend({
+        defaults: {
+          banners: [],
+          recent: [
+            {
+              img: ''
+            }, {
+              img: ''
+            }, {
+              img: ''
+            }, {
+              img: ''
+            }
+          ]
+        },
+        url: path + '/ajax/home/images.php'
+      });
+      Home.Views.Banner = Backbone.View.extend({
+        template: JST["source/template/link-home/banner.hbs"],
+        el: $('#banner'),
+        initialize: function() {
+          return this.listenTo(this.model, 'change', this.render);
+        },
+        render: function() {
+          var a1;
+          this.$el.html('');
+          this.$el.html(this.template(this.model.attributes));
+          $('#banner img').hide();
+          $('#banner img').eq(0).fadeIn();
+          a1 = function() {
+            if ((a1.run != null) && !a1.run) {
+              a1.runrun = true;
+              $('#banner img').hide();
+              $('#banner img').eq($('.banner-switch').index($(this))).fadeIn(function(e) {
+                return a1.run = false;
+              });
+            }
+          };
+          a1.run = false;
+          $('.banner-switch').bind({
+            mouseenter: a1
+          });
+        }
+      });
       Home.Views.Recent = Backbone.View.extend({
         template: JST["source/template/link-home/recent.hbs"],
         el: $('#recent-news'),
+        initialize: function() {
+          return this.listenTo(this.model, 'change', this.render);
+        },
         render: function() {
-          $.ajax({
-            url: path + '/ajax/home/recent.php',
-            dataType: 'json',
-            type: 'GET',
-            timeout: 8000,
-            success: function(result) {
-              $.HomeRecent.$el.html('');
-              return $.HomeRecent.$el.append($.HomeRecent.template(result));
-            },
-            error: function(xhr, textStatus) {
-              if (textStatus === 'timeout') {
-                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
-              } else {
-                return console.log('网络异常，请检查你的网络是否有问题。');
-              }
-            }
-          });
+          this.$el.html('');
+          return this.$el.html(this.template(this.model.attributes));
         }
       });
       Home.Views.FastLinks = Backbone.View.extend({
@@ -51,16 +81,16 @@
           $('.sec-menu-wrapper').children().eq(0).show();
           $('.fast-link-top').bind({
             mouseenter: function() {
-              $.HomeFastLinks.index = $('.fast-link-top').index($(this));
+              Root.FastLinks.View.index = $('.fast-link-top').index($(this));
               $('.top-link-active').hide();
-              $('.top-link-active').eq($.HomeFastLinks.index).show();
+              $('.top-link-active').eq(Root.FastLinks.View.index).show();
               $('.fast-link-top p').css('color', '#AAABAD');
-              $('.fast-link-top p').eq($.HomeFastLinks.index).css('color', '#177BC6');
+              $('.fast-link-top p').eq(Root.FastLinks.View.index).css('color', '#177BC6');
               return $('.triangle').animate({
-                left: ($.HomeFastLinks.index * 10 - 20) + 'em'
+                left: (Root.FastLinks.View.index * 10 - 20) + 'em'
               }, 'normal', 'swing', function() {
                 $('.sec-menu-wrapper').children().hide();
-                return $('.sec-menu-wrapper').children().eq($.HomeFastLinks.index).fadeIn();
+                return $('.sec-menu-wrapper').children().eq(Root.FastLinks.View.index).fadeIn();
               });
             }
           });
@@ -74,45 +104,22 @@
           });
         }
       });
-      Home.Views.Banner = Backbone.View.extend({
-        template: JST["source/template/link-home/banner.hbs"],
-        el: $('#banner'),
-        render: function() {
-          $.ajax({
-            url: path + '/ajax/home/load-banner-image.php',
-            dataType: 'json',
-            type: 'GET',
-            timeout: 8000,
-            success: function(result) {
-              var a1;
-              $.HomeBanner.$el.html('');
-              $.HomeBanner.$el.append($.HomeBanner.template(result));
-              $('#banner img').hide();
-              $('#banner img').eq(0).fadeIn();
-              a1 = function() {
-                $('#banner img').hide();
-                return $('#banner img').eq($('.banner-switch').index($(this))).fadeIn();
-              };
-              return $('.banner-switch').bind({
-                mouseenter: a1
-              });
-            },
-            error: function(xhr, textStatus) {
-              if (textStatus === 'timeout') {
-                return console.log('连接超时，检查你是否使用代理等不稳定的网络。');
-              } else {
-                return console.log('网络异常，请检查你的网络是否有问题。');
-              }
-            }
-          });
+      Root.Banner = {};
+      Root.Recent = {};
+      Root.FastLinks = {};
+      Root.Model = new Home.Models.Images();
+      Root.Banner.View = new Home.Views.Banner({
+        model: Root.Model
+      });
+      Root.Recent.View = new Home.Views.Recent({
+        model: Root.Model
+      });
+      Root.FastLinks.View = new Home.Views.FastLinks();
+      return Root.Model.fetch({
+        success: function() {
+          return Root.FastLinks.View.render();
         }
       });
-      $.HomeRecent = new Home.Views.Recent();
-      $.HomeFastLinks = new Home.Views.FastLinks();
-      $.HomeBanner = new Home.Views.Banner();
-      $.HomeRecent.render();
-      $.HomeFastLinks.render();
-      return $.HomeBanner.render();
     });
   });
 

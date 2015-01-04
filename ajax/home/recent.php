@@ -1,24 +1,4 @@
 <?php
-/*
-*JSON format
-*
-*
-  {
-    basepath: '',
-    news: [
-      {
-        title: 'yes ,I am title',
-        img: '/images/avatar-0.png',
-        links: [
-          {
-            link: '#',
-            name: 'this is a big news'
-          },...
-        ]
-      }
-    ]
-  }
-*/
 
   /* this is a example for json data */
   require(dirname(__FILE__).'/../../../../../wp-load.php');

@@ -138,66 +138,64 @@
           'list/sectype:sectype/:pageindex': 'tolist',
           'content/:id': 'tocontent'
         },
-        checkback: function() {
+        initPage: function(torec) {
+          Root.Recommand.Model.fetch({
+            reset: true,
+            success: function(result) {
+              var num, _i;
+              if (torec) {
+                Root.Recommand.View.render();
+              }
+              for (num = _i = 0; _i <= 3; num = ++_i) {
+                $('.top-tab').eq(num + 1).html('<a href="#list/sectype' + result.attributes.group[num].id + '/0">' + result.attributes.group[num].name + '</a>');
+              }
+            }
+          });
           if (Root.Side.Model.attributes.links == null) {
-            this.navigate('', {
-              trigger: true,
-              replace: true
-            });
-            return false;
+            Root.Side.Model.fetch();
           }
-          return true;
+        },
+        checkinit: function() {
+          if (Root.Side.Model.attributes.links == null) {
+            return this.initPage(false);
+          }
         }
       });
       Root.Router = new Router();
       Root.Router.on('route:torec', function() {
-        Root.Recommand.Model.fetch({
+        return this.initPage(true);
+      });
+      Root.Router.on('route:tolist', function(sectypeid, pageIndex) {
+        this.checkinit();
+        Root.List.Model.sectypeid = sectypeid;
+        Root.List.Model.pageIndex = parseInt(pageIndex);
+        return Root.List.Model.fetch({
           reset: true,
+          success: function() {
+            if ((Root.List.Model.models[0] != null) && (Root.List.Model.models[0].attributes.sum != null)) {
+              Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum;
+            }
+            return Root.List.View.render();
+          }
+        });
+      });
+      Root.Router.on('route:tocontent', function(id) {
+        this.checkinit();
+        return $.ajax({
+          url: path + '/ajax/source/load-content.php',
+          data: {
+            id: id
+          },
+          dataType: 'json',
+          type: 'get',
+          timeout: 8000,
           success: function(result) {
-            var num, _i;
-            Root.Recommand.View.render();
-            for (num = _i = 0; _i <= 3; num = ++_i) {
-              $('.top-tab').eq(num + 1).html('<a href="#list/sectype' + result.attributes.group[num].id + '/0">' + result.attributes.group[num].name + '</a>');
+            if (result.id != null) {
+              Root.Content.Model.set(result);
+              return Root.Content.View.render();
             }
           }
         });
-        if (Root.Side.Model.attributes.links == null) {
-          Root.Side.Model.fetch();
-        }
-      });
-      Root.Router.on('route:tolist', function(sectypeid, pageIndex) {
-        if (this.checkback()) {
-          Root.List.Model.sectypeid = sectypeid;
-          Root.List.Model.pageIndex = parseInt(pageIndex);
-          return Root.List.Model.fetch({
-            reset: true,
-            success: function() {
-              if ((Root.List.Model.models[0] != null) && (Root.List.Model.models[0].attributes.sum != null)) {
-                Root.List.Model.pageSum = Root.List.Model.models[0].attributes.sum;
-              }
-              return Root.List.View.render();
-            }
-          });
-        }
-      });
-      Root.Router.on('route:tocontent', function(id) {
-        if (this.checkback()) {
-          return $.ajax({
-            url: path + '/ajax/source/load-content.php',
-            data: {
-              id: id
-            },
-            dataType: 'json',
-            type: 'get',
-            timeout: 8000,
-            success: function(result) {
-              if (result.id != null) {
-                Root.Content.Model.set(result);
-                return Root.Content.View.render();
-              }
-            }
-          });
-        }
       });
       return Backbone.history.start();
     });
