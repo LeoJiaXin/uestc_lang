@@ -33,6 +33,7 @@
       for ($i=0;$i<count($class_list);$i++) {
         $element = json_decode($class_list[$i]->post_content);
         $element->id = $class_list[$i]->ID;
+        $element->name = $class_list[$i]->post_title;
         array_push($list,$element);
       }
     }

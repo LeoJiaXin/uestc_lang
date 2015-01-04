@@ -28,6 +28,7 @@
     $posts = get_posts($post_arg);
     for ($j=0;$j<count($posts);$j++) {
       $student = json_decode($posts[$j]->post_content);
+      $student->name = $posts[$j]->post_title;
       array_push($ele->students,$student);
     }
     array_push($data->list,$ele);

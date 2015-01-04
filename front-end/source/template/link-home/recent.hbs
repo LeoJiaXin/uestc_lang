@@ -1,12 +1,13 @@
-<ul class="news-wrapper">
-  {{#each news}}
-  <li>
-    <img src="{{../basepath}}{{img}}" alt="">
-    <div>
+<div class="news-wrapper">
+  {{#each recent}}
+  <div class="news-row">
+    <img src="{{img}}" alt="">
+    <div class="links">
       {{#each links}}
       <a href="{{link}}">{{name}}</a>
       {{/each}}
-    </div>
-  </li>
+    </div> 
+    <div class="clear"></div>
+  </div>
   {{/each}}
-</ul>
+</div>

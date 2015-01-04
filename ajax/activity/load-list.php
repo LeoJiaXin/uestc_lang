@@ -21,6 +21,7 @@
       for ($i=0;$i<count($employ_list);$i++) {
         $element = json_decode($employ_list[$i]->post_content);
         $element->id = $employ_list[$i]->ID;
+        $element->name = $employ_list[$i]->post_title;
         $element->watched = getPostViews($element->id);
         unset($element->img);
         unset($element->description);

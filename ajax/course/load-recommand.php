@@ -50,10 +50,9 @@
     $element->title = $data->group[$i]->parent;
     $element->news = array();
     for ($j=0;$j<count($posts);$j++) {
-      $tmp = json_decode($posts[$j]->post_content);
       $tag = new obj;
       $tag->id = $posts[$j]->ID;
-      $tag->name = $tmp->name;
+      $tag->name = $posts[$j]->post_title;
       array_push($element->news, $tag);
     }
     array_push($data->list,$element);

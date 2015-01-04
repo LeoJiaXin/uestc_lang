@@ -19,6 +19,7 @@
       $class = json_decode($data->post_content);
       if ($class) {
         $class->id = $data->ID;
+        $class->name = $data->post_title;
         echo json_encode($class);
         exit;
       }

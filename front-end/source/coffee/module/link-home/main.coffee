@@ -19,6 +19,17 @@ define (require,exports,module)->
         ]
       url : path+'/ajax/home/images.php'
 
+    Home.Models.Recent = Backbone.Model.extend
+      url : path+'/ajax/home/recent.php'
+      initialize : (main)->
+        @main = main
+        @on 'change',@pushrecent
+      pushrecent : (model)->
+        recent = @main.attributes.recent
+        recent[index].links = model.attributes.news[index].links for index in [0..recent.length-1]
+        @main.set
+          recent : recent
+
     Home.Views.Banner = Backbone.View.extend
       template:JST["source/template/link-home/banner.hbs"]
       el: $('#banner')
@@ -28,15 +39,15 @@ define (require,exports,module)->
         @$el.html ''
         @$el.html @template @model.attributes
         $('#banner img').hide()
-        $('#banner img').eq(0).fadeIn()
+        $('#banner img').eq(0).fadeIn ()->
+          Root.Banner.View.run = false
         a1 = ()->
-          if a1.run? and not a1.run
-            a1.runrun = true
+          if Root.Banner.View.run? and not Root.Banner.View.run
+            Root.Banner.View.run = true
             $('#banner img').hide()
-            $('#banner img').eq($('.banner-switch').index($(@))).fadeIn (e)->
-              a1.run = false
+            $('#banner img').eq($('.banner-switch').index($(@))).fadeIn ()->
+              Root.Banner.View.run = false
             return
-        a1.run = false
         $('.banner-switch').bind
           mouseenter:a1
         return
@@ -62,17 +73,21 @@ define (require,exports,module)->
         $('.top-link-active').hide()
         $('.top-link-active').eq(0).show()
         $('.fast-link-top p').eq(0).css('color','#177BC6')
-        $('.sec-menu-wrapper').children().eq(0).show()
+        $('.sec-menu-wrapper').children().eq(0).show ()->
+          Root.FastLinks.View.run = false
         $('.fast-link-top').bind
           mouseenter: ()->
-            Root.FastLinks.View.index = $('.fast-link-top').index($(@))
-            $('.top-link-active').hide()
-            $('.top-link-active').eq(Root.FastLinks.View.index).show()
-            $('.fast-link-top p').css('color','#AAABAD')
-            $('.fast-link-top p').eq(Root.FastLinks.View.index).css('color','#177BC6')
-            $('.triangle').animate {left:(Root.FastLinks.View.index*10-20)+'em'},'normal','swing',()->
-              $('.sec-menu-wrapper').children().hide()
-              $('.sec-menu-wrapper').children().eq(Root.FastLinks.View.index).fadeIn()
+            if Root.FastLinks.View.run? and not Root.FastLinks.View.run
+              Root.FastLinks.View.run = true
+              Root.FastLinks.View.index = $('.fast-link-top').index($(@))
+              $('.top-link-active').hide()
+              $('.top-link-active').eq(Root.FastLinks.View.index).show()
+              $('.fast-link-top p').css('color','#AAABAD')
+              $('.fast-link-top p').eq(Root.FastLinks.View.index).css('color','#177BC6')
+              $('.triangle').animate {left:(Root.FastLinks.View.index*10-20)+'em'},'normal','swing',()->
+                $('.sec-menu-wrapper').children().hide()
+                $('.sec-menu-wrapper').children().eq(Root.FastLinks.View.index).fadeIn ()->
+                  Root.FastLinks.View.run = false
         $('.fast-link-sec').bind
           mouseenter: ()->
             $(this).find('p').css('color','#177BC6')
@@ -84,6 +99,7 @@ define (require,exports,module)->
     Root.FastLinks = {}
 
     Root.Model = new Home.Models.Images()
+    Root.Recent.Model = new Home.Models.Recent Root.Model
 
     Root.Banner.View = new Home.Views.Banner
       model : Root.Model
@@ -94,86 +110,8 @@ define (require,exports,module)->
     Root.Model.fetch
       success : ()->
         Root.FastLinks.View.render()
-    #page for View
-    # Home.Views.Recent = Backbone.View.extend
-    #   template:JST["source/template/link-home/recent.hbs"]
-    #   el: $('#recent-news')
-    #   render: ()->
-    #     $.ajax
-    #       url : path+'/ajax/home/recent.php'
-    #       dataType : 'json'
-    #       type : 'GET'
-    #       timeout : 8000
-    #       success : (result)->
-    #         $.HomeRecent.$el.html ''
-    #         $.HomeRecent.$el.append $.HomeRecent.template result
-    #       error : (xhr,textStatus)->
-    #         if textStatus is 'timeout'
-    #           console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-    #         else
-    #           console.log '网络异常，请检查你的网络是否有问题。'
-    #     return
-
-    # Home.Views.FastLinks = Backbone.View.extend
-    #   template:JST["source/template/link-home/fast-links.hbs"]
-    #   el: $('#fast-links')
-    #   render: ()->
-    #     data = 
-    #       basepath: path+'/images/home/fast-link/'
-    #     @$el.html ''
-    #     @$el.append @template(data)
-    #     $('.sec-menu-wrapper').children().hide()
-    #     $('.top-link-active').hide()
-    #     $('.top-link-active').eq(0).show()
-    #     $('.fast-link-top p').eq(0).css('color','#177BC6')
-    #     $('.sec-menu-wrapper').children().eq(0).show()
-    #     $('.fast-link-top').bind
-    #       mouseenter: ()->
-    #         $.HomeFastLinks.index = $('.fast-link-top').index($(@))
-    #         $('.top-link-active').hide()
-    #         $('.top-link-active').eq($.HomeFastLinks.index).show()
-    #         $('.fast-link-top p').css('color','#AAABAD')
-    #         $('.fast-link-top p').eq($.HomeFastLinks.index).css('color','#177BC6')
-    #         $('.triangle').animate {left:($.HomeFastLinks.index*10-20)+'em'},'normal','swing',()->
-    #           $('.sec-menu-wrapper').children().hide()
-    #           $('.sec-menu-wrapper').children().eq($.HomeFastLinks.index).fadeIn()
-    #     $('.fast-link-sec').bind
-    #       mouseenter: ()->
-    #         $(this).find('p').css('color','#177BC6')
-    #       mouseout: ()->
-    #         $(this).find('p').css('color','#AAABAD')
-
-    # Home.Views.Banner = Backbone.View.extend
-    #   template:JST["source/template/link-home/banner.hbs"]
-    #   el: $('#banner')
-    #   render: ()->
-    #     $.ajax
-    #       url : path+'/ajax/home/load-banner-image.php'
-    #       dataType : 'json'
-    #       type : 'GET'
-    #       timeout : 8000
-    #       success : (result)->
-    #         $.HomeBanner.$el.html ''
-    #         $.HomeBanner.$el.append $.HomeBanner.template result
-    #         $('#banner img').hide()
-    #         $('#banner img').eq(0).fadeIn()
-    #         a1 = ()->
-    #           $('#banner img').hide()
-    #           $('#banner img').eq($('.banner-switch').index($(@))).fadeIn()
-    #         $('.banner-switch').bind 
-    #           mouseenter:a1
-    #       error : (xhr,textStatus)->
-    #         if textStatus is 'timeout'
-    #           console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-    #         else
-    #           console.log '网络异常，请检查你的网络是否有问题。'
-    #     return
-
-    # $.HomeRecent = new Home.Views.Recent()
-    # $.HomeFastLinks = new Home.Views.FastLinks()
-    # $.HomeBanner = new Home.Views.Banner()
-    # #start load pagedata
-    # $.HomeRecent.render()
-    # $.HomeFastLinks.render()
-    # $.HomeBanner.render()
+        Root.Recent.Model.fetch
+          reset : true
+          success : ()->
+            Root.Recent.View.render()
   return

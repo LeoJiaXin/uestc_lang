@@ -29,10 +29,9 @@
   );
   $posts = get_posts($post_arg);
   for ($i=0;$i<count($posts);$i++) {
-    $tmp = json_decode($posts[$i]->post_content);
     $ele = new obj;
     $ele->id = $posts[$i]->ID;
-    $ele->name = $tmp->name;
+    $ele->name = $posts[$i]->post_title;
     array_push($data->links,$ele);
   }
   echo json_encode($data);

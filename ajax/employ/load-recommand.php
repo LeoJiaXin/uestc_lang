@@ -38,7 +38,7 @@
       $tmp = json_decode($posts[$j]->post_content);
       $tag = new obj;
       $tag->id = $posts[$j]->ID;
-      $tag->name = $tmp->name;
+      $tag->name = $posts[$j]->post_title;
       $tag->desc = $tmp->desc;
       if ($j<2) {
         $tag->img = $tmp->img;

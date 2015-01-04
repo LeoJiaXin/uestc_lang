@@ -10,6 +10,7 @@
       if ($source) {
         setPostViews($id);
         $source->id = $data->ID;
+        $source->name = $data->post_title;
         echo json_encode($source);
         exit;
       }

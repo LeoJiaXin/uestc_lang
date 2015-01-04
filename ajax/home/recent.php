@@ -1,24 +1,73 @@
 <?php
 
-  /* this is a example for json data */
   require(dirname(__FILE__).'/../../../../../wp-load.php');
+  define(MAX_LINKS,12);
   class obj{}
   $data = new obj;
-  $data->basepath = get_template_directory_uri();
   $data->news = array();
-
-  for ($i=0;$i<4;$i++) {
-    $element = new obj;
-    $element->title = 'this is a title';
-    $element->img = '/images/avatar-0.png';
-    $element->links = array();
-    for ($j=0;$j<16;$j++) {
+  $cat_arg1 = array(
+    'child_of' => get_cat_ID('course'),
+    'orderby' => 'name',
+    'hide_empty' => false,
+    'exclude' => get_cat_ID('e').','.get_cat_ID('e1').','.get_cat_ID('e2').','.get_cat_ID('e3')
+  );
+  $course_cats = get_categories($cat_arg1);
+  $course_ids = '';
+  for ($i=0;$i<count($course_cats);$i++) {
+    $course_ids = $course_ids.','.$course_cats[$i]->term_id;
+  }
+  $course_arg = array(
+    'numberposts'     => MAX_LINKS,
+    'offset'           => 0,
+    'category'    => $course_ids,
+    'orderby'          => 'post_date',
+    'order'            => 'DESC',
+    'post_type'        => 'post',
+    'post_status'      => 'publish',
+    'suppress_filters' => true 
+  );
+  $course_post = get_posts($course_arg);
+  $course_new = new obj;
+  $course_new->links = array();
+  for ($i=0;$i<count($course_post);$i++) {
+    $ele = new obj;
+    $ele->link = '#';
+    $ele->name = $course_post[$i]->post_title;
+    array_push($course_new->links, $ele);
+  }
+  array_push($data->news, $course_new);
+  $other_type = array('source','employ','activity');
+  for ($j=0;$j<count($other_type);$j++) {
+    $cat_arg2 = array(
+      'child_of' => get_cat_ID($other_type[$j]),
+      'orderby' => 'name',
+      'hide_empty' => false
+    );
+    $source_cats = get_categories($cat_arg2);
+    $source_ids = '';
+    for ($i=0;$i<count($source_cats);$i++) {
+      $source_ids = $source_ids.','.$source_cats[$i]->term_id;
+    }
+    $source_args = array(
+      'numberposts'     => MAX_LINKS,
+      'offset'           => 0,
+      'category'    => $source_ids,
+      'orderby'          => 'post_date',
+      'order'            => 'DESC',
+      'post_type'        => 'post',
+      'post_status'      => 'publish',
+      'suppress_filters' => true 
+    );
+    $source_post = get_posts($source_args);
+    $source_new = new obj;
+    $source_new->links = array();
+    for ($i=0;$i<count($source_post);$i++) {
       $ele = new obj;
       $ele->link = '#';
-      $ele->name = 'this is a news';
-      array_push($element->links, $ele);
+      $ele->name = $source_post[$i]->post_title;
+      array_push($source_new->links, $ele);
     }
-    array_push($data->news, $element);
+    array_push($data->news, $source_new);
   }
   echo json_encode($data);
 ?>

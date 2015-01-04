@@ -8,6 +8,7 @@
       $source = json_decode($data->post_content);
       if ($source) {
         $source->id = $data->ID;
+        $source->name = $data->post_title;
         echo json_encode($source);
         exit;
       }
