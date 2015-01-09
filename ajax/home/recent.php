@@ -31,7 +31,7 @@
   $course_new->links = array();
   for ($i=0;$i<count($course_post);$i++) {
     $ele = new obj;
-    $ele->link = '#';
+    $ele->id = $course_post[$i]->ID;
     $ele->name = $course_post[$i]->post_title;
     array_push($course_new->links, $ele);
   }
@@ -63,7 +63,7 @@
     $source_new->links = array();
     for ($i=0;$i<count($source_post);$i++) {
       $ele = new obj;
-      $ele->link = '#';
+      $ele->id = $source_post[$i]->ID;
       $ele->name = $source_post[$i]->post_title;
       array_push($source_new->links, $ele);
     }

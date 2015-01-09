@@ -11,6 +11,24 @@ define (require,exports,module)->
       Models:{}
     #模型:推荐页面数据
 
+    main_link_prefix = ['','','','','']
+    #get page_id
+    links = $('#menu a')
+    for pos in [0..links.length-1]
+      link = links.eq(pos)
+      link_text = link.html()
+      if link_text.search('课程') isnt -1
+        main_link_prefix[0] = link.attr('href')
+      else if link_text.search('资源') isnt -1
+        main_link_prefix[1] = link.attr('href')
+      else if link_text.search('就业') isnt -1
+        main_link_prefix[2] = link.attr('href')
+      else if link_text.search('动态') isnt -1
+        main_link_prefix[3] = link.attr('href')
+      else if link_text.search('考试') isnt -1
+        main_link_prefix[4] = link.attr('href')
+        #
+
     Home.Models.Images = Backbone.Model.extend
       defaults :
         banners : []
@@ -26,9 +44,14 @@ define (require,exports,module)->
         @on 'change',@pushrecent
       pushrecent : (model)->
         recent = @main.attributes.recent
-        recent[index].links = model.attributes.news[index].links for index in [0..recent.length-1]
+        for index in [0..recent.length-1]
+          recent[index].path = main_link_prefix[index]
+          recent[index].links = model.attributes.news[index].links 
         @main.set
           recent : recent
+
+    Home.Models.FastLinks = Backbone.Model.extend
+      url : path+'/ajax/home/fast-links.php'
 
     Home.Views.Banner = Backbone.View.extend
       template:JST["source/template/link-home/banner.hbs"]
@@ -64,9 +87,14 @@ define (require,exports,module)->
     Home.Views.FastLinks = Backbone.View.extend
       template:JST["source/template/link-home/fast-links.hbs"]
       el: $('#fast-links')
+      initialize : ()->
+        @listenTo @model,'change',@render
       render: ()->
         data = 
           basepath: path+'/images/home/fast-link/'
+          fast : @model.attributes.fast
+          course : main_link_prefix[0]
+          extra : main_link_prefix[4]
         @$el.html ''
         @$el.append @template(data)
         $('.sec-menu-wrapper').children().hide()
@@ -99,17 +127,19 @@ define (require,exports,module)->
     Root.FastLinks = {}
 
     Root.Model = new Home.Models.Images()
+    Root.FastLinks.Model = new Home.Models.FastLinks()
     Root.Recent.Model = new Home.Models.Recent Root.Model
 
     Root.Banner.View = new Home.Views.Banner
       model : Root.Model
     Root.Recent.View = new Home.Views.Recent
       model : Root.Model
-    Root.FastLinks.View = new Home.Views.FastLinks()
+    Root.FastLinks.View = new Home.Views.FastLinks
+      model : Root.FastLinks.Model
 
     Root.Model.fetch
       success : ()->
-        Root.FastLinks.View.render()
+        Root.FastLinks.Model.fetch()
         Root.Recent.Model.fetch
           reset : true
           success : ()->

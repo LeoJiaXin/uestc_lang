@@ -83,8 +83,9 @@ div.line {
 .top-menu-wrapper .top-menu-body {
   margin: 0 auto;
   padding: 2em 0 1em 0;
-  width: 50em;
+  width: 100%;
   height: 6em;
+  text-align: center;
 }
 .triangle {
   position: relative;
@@ -99,70 +100,41 @@ div.line {
 }
 .top-menu-wrapper .fast-link-top {
   position: relative;
-  float: left;
+  display: inline-block;
   margin: 0 2.5em;
   width: 5em;
-  height: 7em;
 }
 .fast-link-top img {
-  position: absolute;
   width: 5em;
   height: 5em;
 }
-.fast-link-top p {
+.fast-link-top img.top-link-active {
   position: absolute;
-  bottom: 0.5em;
-  left: 1.2em;
+  top: 0em;
+}
+.fast-link-top p {
   margin: 0;
   color: #AAABAD;
   font-weight: 600;
 }
 #fast-links .sec-menu-wrapper {
-  position: relative;
-  height: 8em;
   background-color:  #FFF;
 }
-.sec-menu-wrapper .sec-menu-body-1 {
-  margin: 0 auto;
-  padding: 1em 0 2em 0;
-  width: 10em;
-  height: 5em;
-}
-.sec-menu-wrapper .sec-menu-body-2 {
-  margin: 0 auto;
-  padding: 1em 0 2em 0;
-  width: 20em;
-  height: 5em;
-}
-.sec-menu-wrapper .sec-menu-body-4 {
-  margin: 0 auto;
-  padding: 1em 0 2em 0;
-  width: 40em;
-  height: 5em;
-}
-.sec-menu-wrapper .sec-menu-body-5 {
-  margin: 0 auto;
-  padding: 1em 0 2em 0;
-  width: 50em;
-  height: 5em;
+.sec-menu-wrapper .sec-menu-body {
+  padding: 2em 0;
+  text-align: center;
 }
 .sec-menu-wrapper .fast-link-sec {
-  position: relative;
-  float: left;
+  display: inline-block;
   margin: 0 2.5em;
   width: 5em;
-  height: 6em;
   cursor: pointer;
 }
 .fast-link-sec img {
-  position: absolute;
   width: 5em;
   height: 5em;
 }
 .fast-link-sec p {
-  position: absolute;
-  bottom: 0em;
-  left: 1em;
   margin: 0;
   color: #AAABAD;
   font-weight: 600;

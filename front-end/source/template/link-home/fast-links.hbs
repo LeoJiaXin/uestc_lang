@@ -1,115 +1,25 @@
 <div class="top-menu-wrapper">
   <div class="top-menu-body">
+    {{#each fast}}
     <div class="fast-link-top">
-      <img src="{{basepath}}c1n.jpg" alt="">
-      <img class="top-link-active" src="{{basepath}}c1s.jpg" alt="">
-      <p>mnkc</p>
+      <img src="{{../basepath}}{{img}}.jpg" alt="">
+      <img class="top-link-active" src="{{../basepath}}{{img_s}}.jpg" alt="">
+      <p>{{parent_name}}</p>
     </div>
-    <div class="fast-link-top">
-      <img src="{{basepath}}c2n.jpg" alt="">
-      <img class="top-link-active" src="{{basepath}}c2s.jpg" alt="">
-      <p>lxck</p>
-    </div>
-    <div class="fast-link-top">
-      <img src="{{basepath}}c3n.jpg" alt="">
-      <img class="top-link-active" src="{{basepath}}c3s.jpg" alt="">
-      <p>syck</p>
-    </div>
-    <div class="fast-link-top">
-      <img src="{{basepath}}c4n.jpg" alt="">
-      <img class="top-link-active" src="{{basepath}}c4s.jpg" alt="">
-      <p>dxyy</p>
-    </div>
-    <div class="fast-link-top">
-      <img src="{{basepath}}c5n.jpg" alt="">
-      <img class="top-link-active" src="{{basepath}}c5s.jpg" alt="">
-      <p>gjxy</p>
-    </div>
+    {{/each}}
   </div>
   <div class="triangle"></div>
 </div>
 <div class="sec-menu-wrapper">
-  <div class="sec-menu-body-1">
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c11.jpg" alt="">
-      <p>dsdsad</p>
-    </div>
+  {{#each fast}}
+  <div class="sec-menu-body">
+    {{#each child}}
+    <a href="{{#if link}}{{../../../extra}}{{else}}{{@root.course}}#/list/sectype{{id}}/0{{/if}}"><div class="fast-link-sec">
+      <img src="{{../../basepath}}{{img}}.jpg" alt="">
+      <p>{{name}}</p>
+    </div></a>
+    {{/each}}
     <div class="clear"></div>
   </div>
-  <div class="sec-menu-body-5">
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c21.jpg" alt="">
-      <p>dsdasd</p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c22.jpg" alt="">
-      <p>dsadas</p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c23.jpg" alt="">
-      <p>dsadsa</p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c24.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c25.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="sec-menu-body-5">
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c31.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c32.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c33.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c34.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c35.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="sec-menu-body-2">
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c41.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c42.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="sec-menu-body-4">
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c51.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c52.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c53.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="fast-link-sec">
-      <img src="{{basepath}}c54.jpg" alt="">
-      <p></p>
-    </div>
-    <div class="clear"></div>
-  </div>
+  {{/each}}
 </div>
