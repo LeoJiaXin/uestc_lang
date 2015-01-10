@@ -86,6 +86,8 @@ define (require,exports,module)->
         # @listenTo @model,'change',@render
         return
       render : ()->
+        @model.set
+          description : @model.get('description').replace(/visibility: hidden;/g,'')
         @$el.html ''
         @$el.html @template @model.attributes
         Utils.resize()

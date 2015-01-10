@@ -11,6 +11,7 @@
         setPostViews($id);
         $source->id = $data->ID;
         $source->name = $data->post_title;
+        $source->description = do_shortcode($source->description);
         echo json_encode($source);
         exit;
       }

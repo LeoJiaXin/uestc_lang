@@ -93,6 +93,9 @@
         el: $('#link-source'),
         initialize: function() {},
         render: function() {
+          this.model.set({
+            description: this.model.get('description').replace(/visibility: hidden;/g, '')
+          });
           this.$el.html('');
           this.$el.html(this.template(this.model.attributes));
           return Utils.resize();
