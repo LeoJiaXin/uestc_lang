@@ -27,33 +27,31 @@ var _options_ = {
 </head>
 
 <body <?php body_class($admin_options['mode'] < 2 ? 'admin-options-mode-signle' : ''); ?>>
-<div id="top-area"><div class="container">
-  <<?php if(is_home())echo 'h1';else echo 'div'; ?> id="logo">
-    <?php
-    $logo = $admin_options['logo'];
-    $blog_name = get_bloginfo('name');
-    $blog_url = get_bloginfo('url');
-    if($logo)echo '<a href="'.$blog_url.'" class="img" title="'.$blog_name.' HOME"><img src="'.$logo.'" alt="'.$blog_name.'"></a>';
-    else echo '<a href="'.$blog_url.'" class="text">'.$blog_name.'</a>';
-    ?>
-  </<?php if(is_home())echo 'h1';else echo 'div'; ?>>
-  <div id="menu">
-    <?php 
-    $defaults = array(
-      'theme_location'  => 'primary',
-      'depth'           => 2,
-      'container'       => false,
-      'items_wrap'      => '%3$s',
-      'echo'            => 0
-    );
-    $menu = wp_nav_menu($defaults);
-    $menu = str_replace('<li','<span',$menu);
-    $menu = str_replace('</li>','</span>',$menu);
-    $menu = str_replace('<ul','<div',$menu);
-    $menu = str_replace('</ul>','</div>',$menu);
-    echo $menu;
-    ?>
-  </div>
+<div id="top-area">
+  <img class="header-back" src="<?php echo get_template_directory_uri(); ?>/images/header-back.jpg" alt="">
+  <div class="container">
+    <div class="menu-background"></div>
+    <div id="logo">
+      <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="语言中心">
+      <div style="display:inline-block;"><p>电子科技大学</p><p style="color:#FF9900;">语言中心</p></div>
+    </div>
+    <div id="menu">
+      <?php 
+      $defaults = array(
+        'theme_location'  => 'primary',
+        'depth'           => 2,
+        'container'       => false,
+        'items_wrap'      => '%3$s',
+        'echo'            => 0
+      );
+      $menu = wp_nav_menu($defaults);
+      $menu = str_replace('<li','<span',$menu);
+      $menu = str_replace('</li>','</span>',$menu);
+      $menu = str_replace('<ul','<div',$menu);
+      $menu = str_replace('</ul>','</div>',$menu);
+      echo $menu;
+      ?>
+    </div>
   <?php //if($admin_options['mode'] >= 2) { ?>
   <div id="user-area">
     <?php if(is_user_logged_in()):global $current_user;get_currentuserinfo(); ?>
@@ -69,22 +67,6 @@ var _options_ = {
     <?php endif; ?>
   </div>
   <?php //} ?>
-<!--   <div id="search-area">
-    <form action="<?php bloginfo('url'); ?>" method="get">
-      <input type="text" name="s" value="输入关键字..." onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
-      <button type="submit">&nbsp;</button>
-      <div class="clear"></div>
-    </form>
-  </div> -->
-  <div id="social-btns">
-    <?php
-    $socials = function_exists('array_admin_options') ? array_admin_options($admin_options['social']) : '';
-    if(@$socials['微博'])echo '<a href="javascript:void(0)" onclick="window.open(\''.$socials['微博'].'\');" target="_blank" class="weibo"></a>';
-    if(@$socials['微信'])echo '<a href="javascript:void(0)" onclick="window.open(\''.$socials['微信'].'\');" target="_blank" class="weixin"></a>';
-    if(@$socials['facebook'])echo '<a href="javascript:void(0)" onclick="window.open(\''.$socials['facebook'].'\');" target="_blank" class="facebook"></a>';
-    if(@$socials['twitter'])echo '<a href="javascript:void(0)" onclick="window.open(\''.$socials['twitter'].'\');" target="_blank" class="twitter"></a>';
-    ?>
-  </div>
   <div class="clear"></div>
 </div></div>
 <img src="<?php echo get_template_directory_uri(); ?>/images/icons.png" style="position:absolute;top:-1000px;height:1px;width:1px;"><!-- 为了让各类icon早一点加载 -->

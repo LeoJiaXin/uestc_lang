@@ -410,7 +410,7 @@ span.icon.reply {
 */
 
 #top-area{
-  height: 150px;
+  height: 9em;
   border-top: #336699 solid 4px;
   width: 100%;
   background: #E9F4E9;
@@ -445,22 +445,27 @@ span.icon.reply {
   font-weight: 700;
   margin-right: 30px;
   /*line-height: 100px;*/
-  margin-top: 10px;
+  margin-top: 0.2em;
   min-width: 220px;
 }
 #top-area #logo a.img:hover {
   background: none;
 }
 #logo img {
-  width: 130px;
-  height: 130px;
+  width: 4.2em;
+  height: 4.2em;
+}
+#logo p {
+  font-size: 120%;
+  line-height: 1.5em;
+  margin: 0;
 }
 #top-area #menu {
   font-size: 1.2em;
   /*line-height: 104px;*/
 /*  margin-top: 50px;*/
-  margin-top: 110px;
-  margin-left: 320px;
+  margin-top: 5.5em;
+  margin-left: 25em;
 }
 #top-area #menu .menu-item {
   float: left;
