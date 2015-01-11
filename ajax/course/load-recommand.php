@@ -17,7 +17,7 @@
   for ($i=0;$i<count($cats);$i++) {
     if ($cats[$i]->parent == $root_cat_id && $cats[$i]->name != 'e') {
       $ele = new obj;
-      $ele->parent = $cats[$i]->slug;
+      $ele->parent = urldecode($cats[$i]->slug);
       $ele->child = array();
       $ele->ids = '';
       $pIds[$cats[$i]->term_id] = $ele;
@@ -28,7 +28,7 @@
     if ($pIds[$cats[$i]->parent]) {
       $ele = new obj;
       $ele->id = $cats[$i]->term_id;
-      $ele->name = $cats[$i]->slug;
+      $ele->name = urldecode($cats[$i]->slug);
       $pIds[$cats[$i]->parent]->ids = $pIds[$cats[$i]->parent]->ids.','.$cats[$i]->term_id;
       array_push($pIds[$cats[$i]->parent]->child,$ele);
     }

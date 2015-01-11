@@ -13,7 +13,7 @@
 <script>
   var path = '<?php bloginfo('template_url'); ?>';
   var Root = {};
-  if(moduleName) {
+  if(window.moduleName) {
     seajs.config({
       paths: {
         'base': path+'/js',

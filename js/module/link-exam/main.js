@@ -27,11 +27,25 @@
           this.listenTo(this.model, 'change', this.render);
         },
         render: function() {
+          var a1;
           this.$el.html('');
           this.$el.html(this.template(this.model.attributes));
+          $('#exam-sign').attr('href', link_for_sign);
           $('#banner img').hide();
           $('#banner img').eq(0).fadeIn(function() {
             return Root.Data.run = false;
+          });
+          a1 = function() {
+            if ((Root.Data.run != null) && !Root.Data.run) {
+              Root.Data.run = true;
+              $('#banner img').hide();
+              $('#banner img').eq($('.banner-switch').index($(this))).fadeIn(function() {
+                return Root.Data.run = false;
+              });
+            }
+          };
+          $('.banner-switch').bind({
+            mouseenter: a1
           });
         }
       });

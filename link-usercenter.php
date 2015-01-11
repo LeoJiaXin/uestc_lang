@@ -99,29 +99,42 @@ get_header(); ?>
      
       <p class="info"><label><span>昵称：</span><input type="text" name="user[nickname]" value="<?php echo $user->nickname; ?>"></label></p>
       <p class="info"><label><span>用户名：</span><input type="text"value="<?php echo $user->user_login; ?>" disabled></label></p>
-      <p class="info"><label><span>真实姓名（必填）：</span><input type="text" name="user[meta][l_realname]" value="<?php echo $user->l_realname; ?>"></label></p>
-      <p class="info"><label><span>身份证号码(必填)：</span><input type="text" name="user[meta][l_identitycard]" value="<?php echo $user->l_identitycard; ?>"></label></p>
-      <p class="info"><label><span>学号：</span><input type="text" name="user[meta][l_number]" value="<?php echo $user->l_number; ?>"></label></p>
-      <p class="info"><label><span>手机号码（必填）：</span><input type="text" name="user[meta][l_phone]" value="<?php echo $user->l_phone; ?>"></label></p>
+      <p class="info"><label><span><font color="red">*</font>真实姓名：</span><input type="text" id="l_realname-inputer" name="user[meta][l_realname]" value="<?php echo $user->l_realname; ?>"></label></p>
+      <p class="info"><label><span><font color="red">*</font>身份证号码：</span><input type="text" id="l_identitycard-inputer" name="user[meta][l_identitycard]" value="<?php echo $user->l_identitycard; ?>"></label></p>
+      <p class="info"><label><span>学号：</span><input type="text" id="l_number-inputer" name="user[meta][l_number]" value="<?php echo $user->l_number; ?>"></label></p>
+      <p class="info"><label><span><font color="red">*</font>手机号码：</span><input type="text" id="l_phone-inputer" name="user[meta][l_phone]" value="<?php echo $user->l_phone; ?>"></label></p>
       <p class="info"><label><span>英语水平：</span><input type="text" name="user[user_url]" value="<?php echo $user->user_url; ?>"></label></p>
       
-      <p class="info"><label><span>微信：</span><input type="text" name="user[meta][weixin]" value="<?php echo $user->weixin; ?>"></label></p>
-      <p class="info"><label><span>你选择的时间是：</span><input type="text" name="user[meta][l_time]" value="<?php echo $user->l_time; ?>"></label></p>
-<p>选择课程时间</p>
-    <select style="width:200px;" name="user[meta][l_time]">
-    <option value="1月">1月</option>
-     <option value="2月">2月</option>
-      <option value="3月">3月</option>
-       <option value="4月">4月</option>
-        <option value="6月">6月</option>
-         <option value="7月">7月</option>
-          <option value="8月">8月</option>
-           <option value="9月">9月</option>
-        </select>
-  
- 
-  <p class="info"><label><span>留言：</span><textarea name="user[description]"> <?php echo $user->description; ?></textarea></label></p>      
-  
+      <p class="info"><label><span>微信：</span><input type="text" id="weixin-inputer" name="user[meta][weixin]" value="<?php echo $user->weixin; ?>"></label></p>
+      <div class="info">
+        <label id="select-time">
+          <span><font color="red">*</font>选择课程时间：</span>
+          <input type="text" id="l_time-inputer" name="user[meta][l_time]" value="<?php echo $user->l_time; ?>" readonly>
+          <div class="options-locate">
+            <div class="options-wrapper">
+              <?php
+                  $args = array(
+                    'offset'           => 0,
+                    'category_name'    => 'exam',
+                    'orderby'          => 'post_date',
+                    'order'            => 'DESC',
+                    'post_type'        => 'post',
+                    'post_status'      => 'publish',
+                    'suppress_filters' => true 
+                  );
+                  $exam_list = get_posts($args);
+                  if ($exam_list) {
+                    for ($i=0;$i<count($exam_list);$i++) {
+                      $exam = json_decode($exam_list[$i]->post_content);
+                      echo '<p>'.$exam->time.'</p>';
+                    }
+                  }
+              ?>
+            </div>
+          </div>
+        </label>
+      </div>
+  <p class="info"><label><span>留言：</span><textarea name="user[description]"> <?php echo $user->description; ?></textarea></label></p>
       <p class="btns">
         <button type="submit" class="btn btn-submit btn-large">确认</button>
         <a href="<?php echo admin_url('profile.php'); ?>" class="btn btn-cancel btn-large">高级修改</a>
@@ -134,4 +147,44 @@ get_header(); ?>
     </form>
   </div>
 </div>
+<script>
+  var $ = jQuery;
+  $(function() {
+    $('#select-time .options-wrapper').hide();
+    $('#select-time input').bind('click',function() {
+      $('#select-time .options-wrapper').fadeIn();
+    });
+    $('#select-time p').bind('click',function() {
+      $('#select-time input').val($(this).html());
+      $('#select-time .options-wrapper').fadeOut();
+      return false;
+    });
+    $('#page-usercenter form').bind( 'submit',function() {
+      if ($('#l_realname-inputer').val() == '') {
+        alert('请输入真实姓名');
+        return false;
+      }
+      if ($('#l_identitycard-inputer').val().match(/^\d{18}$/) == null) {
+        alert('请输入18位身份证号码');
+        return false;
+      }
+      if ($('#l_number-inputer').val() != '' && $('#l_number-inputer').val().match(/^\d{13}$/) == null) {
+        if (confirm('该学生证号不是电子科技大学学生证号，是否提交')) {
+          $('#l_number-inputer').val('');
+        }else{
+          return false;
+        }
+      }
+      if ($('#l_phone-inputer').val().match(/^\d{11}$/) == null) {
+        alert('请输入11位手机号码');
+        return false;
+      }
+      if ($('#l_time-inputer').val() == '') {
+        alert('请选择时间');
+        return false;
+      }
+      return true;
+    });
+  });
+</script>
 <?php get_footer(); ?>

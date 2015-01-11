@@ -13,6 +13,7 @@ Template Name:exam
   </div>
 </div>
 <script>
+  var link_for_sign = '<?php echo get_permalink($admin_options['page_for_usercenter']); ?>';
   var moduleName = 'link-exam';
 </script>
 <?php get_footer(); ?>

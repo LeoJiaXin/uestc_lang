@@ -28,9 +28,19 @@ define (require,exports,module)->
       render : ()->
         @$el.html ''
         @$el.html @template @model.attributes
+        $('#exam-sign').attr('href',link_for_sign)
         $('#banner img').hide()
         $('#banner img').eq(0).fadeIn ()->
           Root.Data.run = false
+        a1 = ()->
+          if Root.Data.run? and not Root.Data.run
+            Root.Data.run = true
+            $('#banner img').hide()
+            $('#banner img').eq($('.banner-switch').index($(@))).fadeIn ()->
+              Root.Data.run = false
+            return
+        $('.banner-switch').bind
+          mouseenter:a1
         return
 
     Root.Data = {}
@@ -48,55 +58,4 @@ define (require,exports,module)->
       Root.Model.fetch()
 
     Backbone.history.start()
-    #模型:推荐页面数据
-    # Exam.Models.Form = Backbone.Model.extend
-    #   default:
-    #     email: ''
-    #     name: ''
-    #     citizenid: ''
-    #     studentid: ''
-    #     phone: ''
-
-    #page for View
-    # Exam.View = Backbone.View.extend
-    #   form:JST["source/template/link-exam/form.hbs"]
-    #   success:JST["source/template/link-exam/success.hbs"]
-    #   error:JST["source/template/link-exam/error.hbs"]
-    #   el: $('#link-exam')
-    #   toform: (data)->
-    #     $.ExamView.$el.html ''
-    #     $.ExamView.$el.append $.ExamView.form data
-    #     $('#link-exam form').bind 'submit',(e)->
-    #       e.preventDefault()
-    #       $.ajax
-    #         url : path+'/ajax/exam/sign.php'
-    #         dataType : 'json'
-    #         type : 'POST'
-    #         timeout : 8000
-    #         success : (result)->
-    #           if result.state is 'success'
-    #             $.ExamView.tosuccess()
-    #           else
-    #             $.ExamView.toerror()
-    #         error : (xhr,textStatus)->
-    #           if textStatus is 'timeout'
-    #             console.log '连接超时，检查你是否使用代理等不稳定的网络。'
-    #           else
-    #             console.log '网络异常，请检查你的网络是否有问题。'
-    #       return
-    #     return
-    #   tosuccess: ()->
-    #     $.ExamView.$el.html ''
-    #     $.ExamView.$el.append $.ExamView.success()
-    #   toerror: ()->
-    #     $.ExamView.$el.html ''
-    #     $.ExamView.$el.append $.ExamView.error()
-    #     $('#link-exam a').bind 'click',(e)->
-    #       e.preventDefault()
-    #       $.ExamView.toform()
-
-    # $.ExamView = new Exam.View()
-
-    #start load pagedata
-    # $.ExamView.toform()
   return

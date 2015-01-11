@@ -14,7 +14,7 @@
   $cats = get_categories($cat_arg);
   for ($i=0;$i<count($cats);$i++) {
       $ele = new obj;
-      $ele->name = $cats[$i]->slug;
+      $ele->name = urldecode($cats[$i]->slug);
       $ele->id = $cats[$i]->term_id;
       array_push($data->group,$ele);
   }
