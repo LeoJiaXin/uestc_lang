@@ -36,7 +36,7 @@
     array_push($course_new->links, $ele);
   }
   array_push($data->news, $course_new);
-  $other_type = array('source','employ','activity');
+  $other_type = array('source','employ');
   for ($j=0;$j<count($other_type);$j++) {
     $cat_arg2 = array(
       'child_of' => get_cat_ID($other_type[$j]),
@@ -69,5 +69,25 @@
     }
     array_push($data->news, $source_new);
   }
+  $activity_args = array(
+    'numberposts'     => MAX_LINKS,
+    'offset'           => 0,
+    'category'    => get_cat_ID('activity'),
+    'orderby'          => 'post_date',
+    'order'            => 'DESC',
+    'post_type'        => 'post',
+    'post_status'      => 'publish',
+    'suppress_filters' => true 
+  );
+  $activity_post = get_posts($activity_args);
+  $activity_new = new obj;
+  $activity_new->links = array();
+  for ($i=0;$i<count($activity_post);$i++) {
+    $ele = new obj;
+    $ele->id = $activity_post[$i]->ID;
+    $ele->name = $activity_post[$i]->post_title;
+    array_push($activity_new->links, $ele);
+  }
+  array_push($data->news, $activity_new);
   echo json_encode($data);
 ?>

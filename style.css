@@ -51,6 +51,14 @@ div.line {
   float: right;
   margin: 0.2em;
 }
+.red {
+  background-color: #DF1837;
+  color: #fff;
+}
+.light-gray {
+  background-color: #EEEEEE;
+  color: #000;
+}
 /*
   link-home
 */
@@ -186,8 +194,10 @@ div.line {
   height: 14em;
   margin: 2% 1%;
 }
-.news-wrapper .news-row:nth-child(2n) img,
-.news-wrapper .news-row:nth-child(2n) .links {
+.news-wrapper .news-row {
+  border-bottom: 1px solid #ccc;
+}
+.news-wrapper .news-row:nth-child(2n) img{
   float: right;
 }
 .news-wrapper a {
@@ -203,39 +213,61 @@ div.line {
   link-exam
 */
 
-#content-full .background-sign {
+#content-full .background-intro {
   position: relative;
-  height: 40em;
   margin: 0;
-  padding-top: 150px;
+  padding: 30px 0;
 }
-#content-full img.sign-img{
+#content-full img.intro-img{
   position: absolute;
   width: 100%;
   height: 100%;
 }
-.background-sign .sign-wrapper {
-  width: 30em;
-  height: 30em;
-  margin: 0 auto;
-  background-color: #fff;
+.background-intro .bottom-wrapper {
+  margin-top: 1em;
 }
-.sign-wrapper .sign-title {
+.background-intro .intro-wrapper {
+  width: 85%;
+  margin: 0 auto;
+}
+.intro-wrapper .exam-banner-border {
+  float: left;
+  width: 60%;
+}
+.intro-wrapper .exam-side {
+  float: left;
+  width: 35%;
+  margin-left: 4%;
+}
+.intro-wrapper .intro-title {
   height: 1em;
   padding: 1em 1em;
-  background-color: #DF1837;
-  color: #fff;
   font-weight: 600;
   border-bottom: 2px solid #ccc;
 }
-form .form-row {
+.intro-wrapper .intro-content {
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+.intro-content .multiline {
+  height: 14em;
+  word-wrap: break-word;
+  word-break:break-all;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  text-indent:1em;
+  line-height: 1em;
+}
+.top-row {
+  padding: 1em 0;
+}
+.best-texts {
+  margin-right: 3em;
+}
+/*form .form-row {
   width: 70%;
   height: 3em;
   padding: 0 15%;
-}
-.form-row label,
-.form-row input {
-
 }
 .form-row label {
   display: inline-block;
@@ -255,7 +287,7 @@ input[type="checkbox"] {
   margin-left: 7em;
 }
 
-.sign-wrapper input[type="submit"] {
+.intro-wrapper input[type="submit"] {
   display: block;
   margin: 0 auto;
   width: 5em;
@@ -267,10 +299,10 @@ input[type="checkbox"] {
   border: 3px solid #DF1837;
   cursor: pointer;  
 }
-.sign-wrapper input[type="submit"]:hover {
+.intro-wrapper input[type="submit"]:hover {
   background-color: #DF1837; 
   color: #fff;
-}
+}*/
 
 /*
   link-course and link-source
