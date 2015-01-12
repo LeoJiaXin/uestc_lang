@@ -14,7 +14,7 @@ Template Name:source
     <div class="wrapper-tab-body">
       <div class="tabs">
         <div class="tab-wrapper">
-          <div class="top-tab tab1"><a href="#">Recommand</a></div>
+          <div class="top-tab tab1"><a href="">最新</a></div>
         </div>
         <div class="tab-wrapper">
           <div class="top-tab tab2"></div>
@@ -30,7 +30,7 @@ Template Name:source
         </div>
       </div>
       <div class="tab-body">
-        <div class="tab-body-title">Recommand</div>
+        <div class="tab-body-title">最新</div>
         <div class="tab-body-content" id="link-source"></div>
       </div>
     </div>
