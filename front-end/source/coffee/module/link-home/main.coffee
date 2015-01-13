@@ -62,17 +62,31 @@ define (require,exports,module)->
         @$el.html ''
         @$el.html @template @model.attributes
         $('#banner img').hide()
-        $('#banner img').eq(0).fadeIn ()->
-          Root.Banner.View.run = false
-        a1 = ()->
-          if Root.Banner.View.run? and not Root.Banner.View.run
-            Root.Banner.View.run = true
-            $('#banner img').hide()
-            $('#banner img').eq($('.banner-switch').index($(@))).fadeIn ()->
-              Root.Banner.View.run = false
-            return
+        Root.Banner.View.index = 0
+        Root.Banner.View.run = false
+        record = ()->
+          Root.Banner.View.index = $('.banner-switch').index($(@))
+          Root.Banner.View.play(true)
+          return
         $('.banner-switch').bind
-          mouseenter:a1
+          click : record
+        @play()
+        return
+      play : (once)->
+        Root.Banner.View.setBanner()
+        Root.Banner.View.index++
+        if Root.Banner.View.index >= $('#banner img').length
+          Root.Banner.View.index = 0
+        if not once or not once?
+          setTimeout Root.Banner.View.play,5000
+      setBanner : ()->
+        if Root.Banner.View.run? and not Root.Banner.View.run
+          Root.Banner.View.run = true
+          $('#banner img').hide()
+          $('#banner .banner-switch').removeClass 'select'
+          $('#banner .banner-switch').eq(Root.Banner.View.index).addClass 'select'
+          $('#banner img').eq(Root.Banner.View.index).fadeIn ()->
+            Root.Banner.View.run = false
         return
 
     Home.Views.Recent = Backbone.View.extend

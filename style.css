@@ -93,14 +93,14 @@ div.line {
   right: 0;
   z-index: 100;
   margin: 0 auto 0 auto;
-  background-color: #E8E3D1;
 }
 .wrapper-banner-switch .banner-switch {
   float: left;
-  width: 1em;
-  height: 1em;
-  margin: 1em;
-  background-color: #fff;
+  width: 0.7em;
+  height: 0.7em;
+  margin: 0.4em;
+  background-color: #eee;
+  border: 1px solid #bbb;
   cursor: pointer;
 }
 .wrapper-banner-switch .banner-switch.select {

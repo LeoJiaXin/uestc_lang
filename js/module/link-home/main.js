@@ -71,25 +71,41 @@
           return this.listenTo(this.model, 'change', this.render);
         },
         render: function() {
-          var a1;
+          var record;
           this.$el.html('');
           this.$el.html(this.template(this.model.attributes));
           $('#banner img').hide();
-          $('#banner img').eq(0).fadeIn(function() {
-            return Root.Banner.View.run = false;
-          });
-          a1 = function() {
-            if ((Root.Banner.View.run != null) && !Root.Banner.View.run) {
-              Root.Banner.View.run = true;
-              $('#banner img').hide();
-              $('#banner img').eq($('.banner-switch').index($(this))).fadeIn(function() {
-                return Root.Banner.View.run = false;
-              });
-            }
+          Root.Banner.View.index = 0;
+          Root.Banner.View.run = false;
+          record = function() {
+            Root.Banner.View.index = $('.banner-switch').index($(this));
+            Root.Banner.View.play(true);
           };
           $('.banner-switch').bind({
-            mouseenter: a1
+            click: record
           });
+          this.play();
+        },
+        play: function(once) {
+          Root.Banner.View.setBanner();
+          Root.Banner.View.index++;
+          if (Root.Banner.View.index >= $('#banner img').length) {
+            Root.Banner.View.index = 0;
+          }
+          if (!once || (once == null)) {
+            return setTimeout(Root.Banner.View.play, 5000);
+          }
+        },
+        setBanner: function() {
+          if ((Root.Banner.View.run != null) && !Root.Banner.View.run) {
+            Root.Banner.View.run = true;
+            $('#banner img').hide();
+            $('#banner .banner-switch').removeClass('select');
+            $('#banner .banner-switch').eq(Root.Banner.View.index).addClass('select');
+            $('#banner img').eq(Root.Banner.View.index).fadeIn(function() {
+              return Root.Banner.View.run = false;
+            });
+          }
         }
       });
       Home.Views.Recent = Backbone.View.extend({
